@@ -1,79 +1,78 @@
 ---
-// Home page: index.astro
+import RoundupLayout from '../layouts/RoundupLayout.astro';
 import { config } from '../lib/config';
-import '../styles/global.css';
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{config.siteName} — {config.tagline}</title>
-  <meta name="description" content={config.tagline} />
-  <meta property="og:title" content={config.siteName} />
-  <meta property="og:description" content={config.tagline} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={Astro.url.href} />
-  <meta property="og:site_name" content={config.siteName} />
-  <script type="application/ld+json" set:html={JSON.stringify({
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: config.siteName,
-    url: Astro.url.href,
-    description: config.tagline,
-  })}>
-  </script>
-</head>
-<body>
-  <header class="site-header">
-    <div class="container">
-      <a href="/" class="site-logo">Gear<span>Compared</span></a>
-      <nav class="site-nav" aria-label="Main navigation">
-        {config.categories.map((cat) => (
-          <a href={`/${cat.slug}/`}>{cat.name}</a>
-        ))}
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <div class="page-hero" style="padding: var(--space-16) 0;">
-      <div class="container container--content">
-        <h1>{config.siteName}</h1>
-        <p>{config.tagline}</p>
-      </div>
-    </div>
-
-    <div class="container" style="padding: var(--space-8) 0 var(--space-16);">
-      <div class="product-grid" style="grid-template-columns: 1fr 1fr;">
-        {config.categories.map((cat) => (
-          <a 
-            href={`/${cat.slug}/`}
-            style="padding: var(--space-8); border: 2px solid var(--color-border-light); border-radius: var(--radius-xl); text-decoration: none; transition: box-shadow var(--transition-normal), border-color var(--transition-normal);"
-          >
-            <h2 style="font-size: var(--fs-3xl); margin-bottom: var(--space-3); color: var(--color-text);">{cat.name}</h2>
-            <p style="color: var(--color-text-muted); margin-bottom: var(--space-4); font-size: var(--fs-lg);">{cat.description}</p>
-            <ul style="display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); list-style: none; padding: 0;">
-              {cat.subcategories.map((sc) => (
-                <li style="font-size: var(--fs-sm); padding: var(--space-1) var(--space-3); background: var(--color-primary-light); color: var(--color-primary); border-radius: var(--radius-xl); font-weight: var(--fw-medium);">{sc}</li>
-              ))}
-            </ul>
-          </a>
-        ))}
-      </div>
-    </div>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p>&copy; {new Date().getFullYear()} {config.siteName}. All rights reserved.</p>
-      <div class="site-footer__links">
-        <a href="/about/">About</a>
-        <a href="/privacy/">Privacy Policy</a>
-        <a href="/disclosure/">Affiliate Disclosure</a>
-      </div>
-    </div>
-  </footer>
-</body>
-</html>
+<RoundupLayout
+  title="The Best Standing Desks"
+  description="We compared height range, stability, motor quality, and thousands of owner reviews to find the standing desks that are actually worth it. Most of them aren't."
+  category="Standing Desks"
+  breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Standing Desks' }]}
+  products={[
+    {
+      name: 'FlexiSpot E7',
+      brand: 'FlexiSpot',
+      price: 299,
+      rating: '4.6',
+      reviewCount: 3200,
+      asin: 'B0000TEST001',
+      label: 'Best for most people',
+      specs: { 'Height': '22.8–48.4″', 'Capacity': '355 lbs', 'Motor': 'Dual', 'Warranty': '15 years' },
+      body: 'The E7 does almost everything desks twice its price do — dual motors, 355-pound capacity, 15-year warranty, programmable memory — for under $300. Unless you\'re over 6′2″ or need more than 48″ of height, this is the one.',
+      link: '#',
+    },
+    {
+      name: 'Uplift V2',
+      brand: 'Uplift Desk',
+      price: 599,
+      rating: '4.8',
+      reviewCount: 8100,
+      asin: 'B0000TEST002',
+      label: 'Best customization',
+      specs: { 'Height': '25.3–51.1″', 'Capacity': '355 lbs', 'Motor': 'Dual', 'Warranty': '15 years' },
+      body: 'The gold standard for a reason. Goes higher than the E7 (51.1″), runs quieter (45 dB), and offers 12 desktop finishes. If you\'re tall, noise-sensitive, or want every option, the extra $300 is worth it.',
+      link: '#',
+    },
+    {
+      name: 'DeskHaus Apex Pro',
+      brand: 'DeskHaus',
+      price: 927,
+      rating: '4.9',
+      reviewCount: 900,
+      asin: 'B0000TEST003',
+      label: 'Built like a tank',
+      specs: { 'Height': '22–50″', 'Capacity': '600 lbs', 'Motor': 'Dual', 'Warranty': '20 years' },
+      body: '600-pound capacity, 20-year warranty, dead silent at 42 dB. Overkill for a laptop — perfect for a heavy custom wood top or serious multi-monitor setup.',
+      link: '#',
+    },
+    {
+      name: 'Fully Jarvis',
+      brand: 'Fully (Herman Miller)',
+      price: 549,
+      rating: '4.7',
+      reviewCount: 5400,
+      asin: 'B0000TEST004',
+      label: 'Also great',
+      specs: { 'Height': '24.5–50″', 'Capacity': '350 lbs', 'Motor': 'Dual', 'Warranty': '15 years' },
+      body: 'The Uplift V2\'s longtime rival — now backed by Herman Miller. Slightly smaller height range, fewer finishes, but still an excellent desk. A strong alternative if you find it under $450.',
+      link: '#',
+    },
+  ]}
+  guideSections={[
+    { title: 'Height range', body: 'Measure from the floor to your elbow while sitting, and again while standing. Most desks cover 22″ to 50″, fitting people from about 5′0″ to 6′4″. If you\'re shorter, you need a desk that goes below 24″. If you\'re taller, you need above 50″.' },
+    { title: 'Weight capacity', body: 'A single monitor, laptop, and keyboard is about 30 pounds. Dual monitors, a desktop PC, and arm-mounted screens can exceed 100 pounds. Most dual-motor desks handle 350+ pounds without issue.' },
+    { title: 'Motor count and noise', body: 'Single-motor desks are slower, louder, and wobblier. Dual-motor is the standard — quiet enough for an open office. If your desk shares a room, noise matters more than you think.' },
+    { title: 'Stability at standing height', body: 'Two-leg desks always have some movement at max height. Four-leg desks are far more stable but cost more. If you type hard or do precision work, stability matters.' },
+  ]}
+  faq={[
+    { question: 'Are standing desks actually healthier?', answer: 'Alternating between sitting and standing reduces back pain — studies show about 30% less lower back pain after a month of use. The benefit is from not being stuck in one position. Alternate every 45–60 minutes.' },
+    { question: 'What\'s the difference between a $300 and $900 desk?', answer: 'At $300, the FlexiSpot E7 gives you dual motors, 355-pound capacity, and a 15-year warranty. At $900, the DeskHaus gives you four legs (zero wobble), 600-pound capacity, and a 20-year warranty. Most people don\'t need the premium.' },
+    { question: 'Should I buy a frame and add my own top?', answer: 'Yes, if you have the time. A solid wood butcher block ($100–200) plus a good frame ($300–500) gets you a desk that looks and feels better than most pre-built options.' },
+  ]}
+  relatedPages={[
+    { title: 'Uplift V2 vs FlexiSpot E7', url: '/standing-desks/compare/B0000TEST002-vs-B0000TEST001/' },
+    { title: 'DeskHaus Apex Pro vs Uplift V2', url: '/standing-desks/compare/B0000TEST003-vs-B0000TEST002/' },
+    { title: 'Fully Jarvis vs FlexiSpot E7', url: '/standing-desks/compare/B0000TEST004-vs-B0000TEST001/' },
+    { title: 'Best desks under $400', url: '/standing-desks/best/' },
+  ]}
+/>

@@ -1,200 +1,120 @@
 ---
-// RoundupLayout: "Best 10 X" category roundups
-import type { ProductData, Breadcrumb } from '../lib/structured-data';
-import { generateItemListLD, generateBreadcrumbLD, generateFAQLD, mergeLD, type FAQItem } from '../lib/structured-data';
-import { config } from '../lib/config';
-import { asinToAffiliateUrl } from '../lib/affiliate';
-import '../styles/global.css';
-
-interface Props {
-  title: string;
-  description: string;
-  products: ProductData[];
-  category: string;
-  subcategory?: string;
-  breadcrumbs: Breadcrumb[];
-  faqs?: FAQItem[];
-  intro?: string;
-  howWeChose?: string;
-}
+// RoundupLayout — "Best X for Y" comparison roundup pages
+import BaseLayout from './BaseLayout.astro';
+import StructuredData from '../lib/structured-data';
 
 const {
   title,
   description,
-  products,
   category,
-  subcategory,
-  breadcrumbs,
-  faqs,
-  intro,
-  howWeChose,
+  products = [],
+  breadcrumbs = [],
+  guideSections = [],
+  faq = [],
+  relatedPages = [],
 } = Astro.props;
 
-const pageUrl = Astro.url.href;
-
-const ldObjects: Record<string, unknown>[] = [
-  generateItemListLD(products, title, pageUrl),
-  generateBreadcrumbLD(breadcrumbs),
-];
-if (faqs && faqs.length > 0) {
-  ldObjects.push(generateFAQLD(faqs));
-}
-const ldJson = mergeLD(...ldObjects);
-
-const catConfig = config.categories.find((c) => c.slug === category);
-const categoryName = catConfig?.name || category;
+const url = Astro.url.pathname;
 ---
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{title} — {config.siteName}</title>
-  <meta name="description" content={description} />
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={pageUrl} />
-  <meta property="og:site_name" content={config.siteName} />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json" set:html={JSON.stringify(ldJson)}>
-  </script>
-</head>
-<body>
-  <header class="site-header">
-    <div class="container">
-      <a href="/" class="site-logo">Gear<span>Compared</span></a>
-      <nav class="site-nav" aria-label="Main navigation">
-        {config.categories.map((cat) => (
-          <a href={`/${cat.slug}/`}>{cat.name}</a>
-        ))}
-      </nav>
-    </div>
-  </header>
 
-  <main>
-    <div class="page-hero">
-      <div class="container container--content">
+<BaseLayout title={title} description={description}>
+  <StructuredData
+    type="itemList"
+    data={{
+      items: products.map((p, i) => ({
+        position: i + 1,
+        name: p.name,
+        brand: p.brand,
+        url: p.link,
+        image: p.imageUrl,
+        price: p.price,
+        rating: p.rating,
+        reviewCount: p.reviewCount,
+      })),
+    }}
+  />
+
+  <main class="content">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      {breadcrumbs.map((crumb, i) => (
+        <span>
+          {i > 0 && <span class="sep"> / </span>}
+          {crumb.url ? <a href={crumb.url}>{crumb.name}</a> : crumb.name}
+        </span>
+      ))}
+    </nav>
+
+    <article>
+      <header class="article-header">
+        <div class="changelog">Updated {new Date().toISOString().split('T')[0]} · {products.length} products compared</div>
         <h1>{title}</h1>
-        <p>{description}</p>
-      </div>
-    </div>
+        {description && <p style="font-size:1.05rem;color:var(--text-secondary);line-height:1.6;margin-bottom:24px;">{description}</p>}
+      </header>
 
-    <div class="container">
-      <nav class="breadcrumbs" aria-label="Breadcrumb">
-        {breadcrumbs.map((b, i) => (
-          <>
-            {i > 0 && <span class="sep">›</span>}
-            {b.url ? <a href={b.url}>{b.name}</a> : <span>{b.name}</span>}
-          </>
-        ))}
-      </nav>
+      <p class="disclosure-inline">
+        When you buy through our links, we may earn a commission.
+        <a href="/disclosure/">Here's how we choose</a> &mdash; commissions don't influence our picks.
+      </p>
 
-      <div class="affiliate-disclaimer">
-        <strong>Disclosure:</strong> As an Amazon Associate we earn from qualifying purchases. 
-        This comes at no additional cost to you.
-      </div>
+      {products.map((product) => (
+        <div class="product-card">
+          <div class="product-card__header">
+            <div>
+              <div class="product-card__title">{product.name}</div>
+              <div class="product-card__brand">{product.brand}</div>
+            </div>
+            {product.label && <span class="product-card__label">{product.label}</span>}
+          </div>
+          <div class="product-card__price">
+            {product.price ? `$${product.price}` : 'Price not available'}
+          </div>
+          <div class="product-card__specs">
+            {product.specs && typeof product.specs === 'object' && Object.entries(product.specs).map(([key, value]) => (
+              <span>{value} <span class="sep">·</span></span>
+            ))}
+            <span>{product.rating} ★ from {product.reviewCount?.toLocaleString()}+ reviews</span>
+          </div>
+          {product.body && <p class="product-card__body">{product.body}</p>}
+          <a href={product.link || `/go/${product.asin}/`} class="product-card__cta">
+            View on Amazon &rarr;
+          </a>
+        </div>
+      ))}
 
-      {intro && (
-        <section style="margin: var(--space-6) 0; font-size: var(--fs-lg); max-width: var(--max-width-content);">
-          <p>{intro}</p>
-        </section>
-      )}
-
-      {/* Ranked List */}
-      <section>
-        <ol class="roundup-list">
-          {products.map((p, idx) => (
-            <li class="roundup-item">
-              <div class="roundup-item__rank">#{idx + 1}</div>
-              <img src={p.imageUrl} alt={p.title} class="roundup-item__image" loading="lazy" />
-              <div class="roundup-item__content">
-                <h3 class="roundup-item__title">
-                  <a href={`/${category}/product/${p.asin}/`}>{p.title}</a>
-                </h3>
-                <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-2);">
-                  <div class="product-card__rating">
-                    {'★'.repeat(Math.round(p.rating))}{'☆'.repeat(5 - Math.round(p.rating))} {p.rating.toFixed(1)}
-                  </div>
-                  <span style="font-size: var(--fs-xs); color: var(--color-text-muted);">
-                    ({p.reviewCount.toLocaleString()} reviews)
-                  </span>
-                </div>
-                <p style="font-size: var(--fs-sm); color: var(--color-text-muted); margin-bottom: var(--space-2);">
-                  {p.brand} • {Object.values(p.specs).slice(0, 2).join(' • ')}
-                </p>
-                <div class="roundup-item__pros-cons">
-                  <div class="pros">
-                    <h4>Pros</h4>
-                    <ul>
-                      {p.features.slice(0, 3).map((f) => <li>{f}</li>)}
-                    </ul>
-                  </div>
-                  <div class="cons">
-                    <h4>Cons</h4>
-                    <ul>
-                      <li>Premium pricing</li>
-                      {idx > 0 && <li>{`Not as feature-rich as #${idx}`}</li>}
-                    </ul>
-                  </div>
-                </div>
-                <div style="display: flex; align-items: center; gap: var(--space-4); margin-top: var(--space-3);">
-                  <span style="font-size: var(--fs-2xl); font-weight: var(--fw-bold);">
-                    ${p.price.toFixed(2)}
-                    {p.listPrice && p.listPrice > p.price && (
-                      <del style="font-size: var(--fs-sm); font-weight: var(--fw-normal); color: var(--color-text-muted); margin-left: var(--space-2);">
-                        ${p.listPrice.toFixed(2)}
-                      </del>
-                    )}
-                  </span>
-                  <a 
-                    href={asinToAffiliateUrl(p.asin)} 
-                    class="product-card__cta" 
-                    target="_blank" 
-                    rel="nofollow sponsored"
-                  >
-                    Check Price
-                  </a>
-                </div>
-              </div>
-            </li>
+      {guideSections.length > 0 && (
+        <section class="guide-section">
+          <h2>What actually matters when buying a {category?.toLowerCase() || 'product'}</h2>
+          {guideSections.map((section) => (
+            <div>
+              <h3>{section.title}</h3>
+              <p>{section.body}</p>
+            </div>
           ))}
-        </ol>
-      </section>
-
-      {howWeChose && (
-        <section style="margin: var(--space-8) 0; max-width: var(--max-width-content);">
-          <h2>How We Chose</h2>
-          <p>{howWeChose}</p>
         </section>
       )}
 
-      {/* FAQ */}
-      {faqs && faqs.length > 0 && (
-        <section style="margin: var(--space-8) 0; max-width: var(--max-width-content);">
-          <h2>Frequently Asked Questions</h2>
-          {faqs.map((faq, idx) => (
-            <details key={idx} style="margin-bottom: var(--space-3); padding: var(--space-4); border: 1px solid var(--color-border-light); border-radius: var(--radius-md);">
-              <summary style="font-weight: var(--fw-semibold); cursor: pointer;">
-                {faq.question}
-              </summary>
-              <p style="margin-top: var(--space-3); color: var(--color-text-muted);">{faq.answer}</p>
+      {faq.length > 0 && (
+        <section class="faq">
+          <h2>Common questions</h2>
+          {faq.map((item) => (
+            <details class="faq-item">
+              <summary>{item.question}</summary>
+              <p>{item.answer}</p>
             </details>
           ))}
         </section>
       )}
-    </div>
-  </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <p>© {new Date().getFullYear()} {config.siteName}. All rights reserved.</p>
-      <div class="site-footer__links">
-        <a href="/about/">About</a>
-        <a href="/privacy/">Privacy Policy</a>
-        <a href="/disclosure/">Affiliate Disclosure</a>
-      </div>
-    </div>
-  </footer>
-</body>
-</html>
+      {relatedPages.length > 0 && (
+        <section class="related">
+          <h2>More comparisons</h2>
+          <div class="related-list">
+            {relatedPages.map((p) => (
+              <a href={p.url}>{p.title} &rarr;</a>
+            ))}
+          </div>
+        </section>
+      )}
+    </article>
+  </main>
+</BaseLayout>

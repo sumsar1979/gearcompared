@@ -1,0 +1,56 @@
+---
+// BaseLayout — shared shell for all pages
+// Props:
+//   title: string
+//   description: string
+import { config } from '../lib/config';
+import '../styles/global.css';
+
+const { title, description } = Astro.props;
+const fullTitle = title ? `${title} | ${config.siteName}` : config.siteName;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description || config.tagline} />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description || config.tagline} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={Astro.url.href} />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="site-logo">{config.siteName} <span>&rarr;</span></a>
+      <nav>
+        <ul class="site-nav">
+          {config.categories.map((cat) => (
+            <li><a href={`/${cat.slug}/`}>{cat.name}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <slot />
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__links">
+        <a href="/privacy/">Privacy</a>
+        <a href="/disclosure/">How we make money</a>
+        <a href="/terms/">Terms</a>
+      </div>
+      <p>&copy; {new Date().getFullYear()} {config.siteName}. As an Amazon Associate we earn from qualifying purchases &mdash; this does not affect which products we recommend or how we rank them.</p>
+    </div>
+  </footer>
+</body>
+</html>
