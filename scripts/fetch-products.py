@@ -184,9 +184,21 @@ def save_products(products_by_category):
         print(f"  [OK] Wrote {len(products)} products to {filepath}")
 
 
+def load_existing_products():
+    """Load existing product data files if they exist"""
+    existing = {}
+    for cat_slug in ["standing-desks", "kitchen-appliances"]:
+        fpath = DATA_DIR / f"{cat_slug}.json"
+        if fpath.exists():
+            with open(fpath, "r") as f:
+                existing[cat_slug] = json.load(f)
+    return existing
+
+
 def main():
     parser = argparse.ArgumentParser(description="Fetch product data for GearCompared")
     parser.add_argument("--mock", action="store_true", help="Generate mock product data")
+    parser.add_argument("--real", action="store_true", help="Use real product data from data/products/")
     parser.add_argument("--config", type=str, help="Path to product ASIN config JSON")
     args = parser.parse_args()
 
@@ -200,18 +212,33 @@ def main():
         print("[OK] Mock product data generated successfully!")
         return 0
 
+    if args.real:
+        print("   Mode: Real product data")
+        existing = load_existing_products()
+        if existing:
+            print(f"   [OK] Loaded {len(existing)} categories with real product data")
+            for cat, prods in existing.items():
+                print(f"     {cat}: {len(prods)} products")
+            return 0
+        else:
+            print("   [WARN] No existing product data found. Run scripts/build-kitchen-data.py first.")
+            print("   [INFO] Falling back to mock data.")
+            products = fetch_products_mock()
+            save_products(products)
+            return 0
+
     if args.config:
         config = load_config() or json.loads(open(args.config).read() if Path(args.config).exists() else "{}")
     else:
         config = load_config()
 
     if not config:
-        print("[WARN] No config found. Run with --mock to generate test data.")
+        print("[WARN] No config found. Run with --mock or --real.")
         return 1
 
     # Real PAAPI fetch would go here
     print("   Mode: Real PAAPI (not yet implemented)")
-    print("   Run with --mock for testing")
+    print("   Run with --mock or --real")
     return 0
 
 

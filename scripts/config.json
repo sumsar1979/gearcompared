@@ -1,13 +1,13 @@
 {
-  "_comment": "Product ASIN configuration for GearCompared. Add ASINs to track per category.",
+  "_comment": "Product ASIN configuration for GearCompared. Verified real Amazon ASINs.",
   "standing-desks": {
-    "asins": []
+    "asins": ["B0CT95J8XH", "B0B422BBHT", "B0CT94Z191", "B0DT3Y1X96", "B0B41YH9B6", "B0DHS5X6WD", "B0G2KZDXDQ", "B0FKH3GMZL", "B0B422ZYY1", "B0C1VNFQS9"]
   },
   "kitchen-appliances": {
-    "blenders": [],
-    "air-fryers": [],
-    "coffee-makers": [],
-    "stand-mixers": [],
-    "toasters": []
+    "blenders": ["B07L34K4BH", "B008H4SLV6", "B0BCN28P8G", "B07GV2SGRD"],
+    "air-fryers": ["B07FDJMC9Q", "B0CBSB2L7K", "B0BX2YS5KQ", "B0BG5KML8V"],
+    "coffee-makers": ["B07R3Y4ZHF", "B0798G41DB", "B08C76KF7Q", "B00CH9QWOU"],
+    "stand-mixers": ["B005Z2F9T0", "B08XY4D1P4", "B07RTX3D8S", "B00004SGFP"],
+    "toasters": ["B07SWD2VBM", "B07CZD5GC9", "B08CK7TBP3", "B00005OTWM"]
   }
 }
