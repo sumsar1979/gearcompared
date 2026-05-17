@@ -46,6 +46,11 @@ const {
         <h2 style="margin-bottom:16px;">Top {products.length} products</h2>
         {products.slice(0, 5).map((product) => (
           <div class="product-card">
+            {product.imageUrl && (
+              <a href={product.affiliateUrl || `/${category}/product/${product.asin}/`} rel="nofollow sponsored" target="_blank" class="product-card__image-link">
+                <img src={product.imageUrl} alt={product.title || product.name} class="product-card__image" loading="lazy" width="300" height="300" />
+              </a>
+            )}
             <div class="product-card__title">{product.title || product.name}</div>
             <div class="product-card__brand">{product.brand}</div>
             <div class="product-card__price">${product.price || '?'}</div>

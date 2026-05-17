@@ -39,6 +39,9 @@ const product = products[0] || {};
       </p>
 
       <div class="product-card">
+        {product.imageUrl && (
+          <img src={product.imageUrl} alt={product.title} class="product-card__image product-card__image--hero" loading="eager" width="500" height="500" />
+        )}
         <div class="product-card__price">
           ${product.price || '?'}
           {product.listPrice && <span class="list-price">${product.listPrice}</span>}
@@ -63,7 +66,15 @@ const product = products[0] || {};
         </div>
       </div>
 
-      {body && <section class="guide-section" set:html={body} />}
+{/* Convert plain-text body to HTML, respecting any existing HTML tags */}
+      {body && (() => {
+        if (/<[a-z][\s\S]*>/i.test(body)) {
+          // Already has HTML — render as-is
+          return <section class="guide-section" set:html={body} />;
+        }
+        const htmlBody = body.split(/\n\n+/).map(p => `<p>${p.trim()}</p>`).join('');
+        return <section class="guide-section" set:html={htmlBody} />;
+      })()}
 
       {relatedProducts && relatedProducts.length > 0 && (
         <section class="related">

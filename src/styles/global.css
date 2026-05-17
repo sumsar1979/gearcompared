@@ -208,6 +208,31 @@ h4 { font-size: 1rem; }
   border-color: #ccc;
 }
 
+.product-card__image-link {
+  display: block;
+  border-bottom: none;
+  margin-bottom: 16px;
+}
+
+.product-card__image-link:hover {
+  border-bottom: none;
+}
+
+.product-card__image {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.product-card__image--hero {
+  max-width: 500px;
+  margin-bottom: 24px;
+}
+
 .product-card__header {
   display: flex;
   justify-content: space-between;

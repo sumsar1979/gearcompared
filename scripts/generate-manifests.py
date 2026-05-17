@@ -118,7 +118,15 @@ def product_manifest(cat, p, all_p):
     feats = p.get("features",[])
     flist = "\n".join([f"- {f}" for f in feats])
     short = p["title"].split(",")[0].strip()
-    body = f"""## Overview
+    
+    # Use editorial review if available, otherwise generate template
+    if p.get('review'):
+        body = f"""{p['review']}
+
+<a href="{p['affiliateUrl']}" class="btn btn-buy" rel="nofollow sponsored" target="_blank">Check Price on Amazon →</a>
+<small class="disclosure">As an Amazon Associate we earn from qualifying purchases.</small>"""
+    else:
+        body = f"""## Overview
 
 The {p['title']} is a well-regarded {cat.replace('-',' ')} from {p['brand']}, rated {p['rating']}/5 from {p['reviewCount']:,} verified reviews on Amazon.
 

@@ -76,6 +76,11 @@ const specKeys = [...allSpecs];
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
           {products.map(p => (
             <div class="product-card">
+              {p.imageUrl && (
+                <a href={p.affiliateUrl} rel="nofollow sponsored" target="_blank" class="product-card__image-link">
+                  <img src={p.imageUrl} alt={p.title} class="product-card__image" loading="lazy" width="300" height="300" />
+                </a>
+              )}
               <div class="product-card__title">{p.title}</div>
               <div class="product-card__brand">{p.brand}</div>
               <div class="product-card__price">

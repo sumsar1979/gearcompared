@@ -56,6 +56,11 @@ const {
         <h2>The contenders</h2>
         {products.map((product) => (
           <div class="product-card">
+            {product.imageUrl && (
+              <a href={product.affiliateUrl} rel="nofollow sponsored" target="_blank" class="product-card__image-link">
+                <img src={product.imageUrl} alt={product.title} class="product-card__image" loading="lazy" width="300" height="300" />
+              </a>
+            )}
             <div class="product-card__header">
               <div>
                 <div class="product-card__title">
