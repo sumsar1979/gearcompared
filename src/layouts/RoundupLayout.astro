@@ -1,7 +1,6 @@
 ---
 // RoundupLayout — "Best X for Y" comparison roundup pages
 import BaseLayout from './BaseLayout.astro';
-import StructuredData from '../lib/structured-data';
 
 const {
   title,
@@ -18,22 +17,6 @@ const url = Astro.url.pathname;
 ---
 
 <BaseLayout title={title} description={description}>
-  <StructuredData
-    type="itemList"
-    data={{
-      items: products.map((p, i) => ({
-        position: i + 1,
-        name: p.name,
-        brand: p.brand,
-        url: p.link,
-        image: p.imageUrl,
-        price: p.price,
-        rating: p.rating,
-        reviewCount: p.reviewCount,
-      })),
-    }}
-  />
-
   <main class="content">
     <nav class="breadcrumbs" aria-label="Breadcrumb">
       {breadcrumbs.map((crumb, i) => (

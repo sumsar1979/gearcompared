@@ -1,7 +1,6 @@
 ---
 // ProductLayout — Single product detail page
 import BaseLayout from './BaseLayout.astro';
-import StructuredData from '../lib/structured-data';
 
 const {
   title,
@@ -16,20 +15,6 @@ const product = products[0] || {};
 ---
 
 <BaseLayout title={title} description={description}>
-  {product && (
-    <StructuredData
-      type="product"
-      data={{
-        name: product.name,
-        brand: product.brand,
-        price: product.price,
-        rating: product.rating,
-        reviewCount: product.reviewCount,
-        description: description,
-      }}
-    />
-  )}
-
   <main class="content">
     <nav class="breadcrumbs" aria-label="Breadcrumb">
       {breadcrumbs.map((crumb, i) => (

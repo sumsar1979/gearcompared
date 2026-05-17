@@ -1,7 +1,6 @@
 ---
 // ComparisonLayout — "X vs Y" head-to-head comparison pages
 import BaseLayout from './BaseLayout.astro';
-import StructuredData from '../lib/structured-data';
 
 const {
   title,
@@ -20,18 +19,6 @@ const url = Astro.url.pathname;
 ---
 
 <BaseLayout title={title} description={description}>
-  <StructuredData
-    type="comparisonTable"
-    data={{
-      name: title,
-      description: description,
-      items: [
-        { name: productA.name, brand: productA.brand, price: productA.price, rating: productA.rating },
-        { name: productB.name, brand: productB.brand, price: productB.price, rating: productB.rating },
-      ],
-    }}
-  />
-
   <main class="content">
     <nav class="breadcrumbs" aria-label="Breadcrumb">
       {breadcrumbs.map((crumb, i) => (
