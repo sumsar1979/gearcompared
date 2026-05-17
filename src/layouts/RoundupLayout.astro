@@ -1,5 +1,5 @@
 ---
-// RoundupLayout — "Best X for Y" comparison roundup pages
+// RoundupLayout — "Best X" editorial roundup pages
 import BaseLayout from './BaseLayout.astro';
 
 const {
@@ -8,12 +8,13 @@ const {
   category,
   products = [],
   breadcrumbs = [],
-  guideSections = [],
-  faq = [],
-  relatedPages = [],
+  intro,
+  howWeChose,
+  faqs = [],
+  winner,
+  winnerLabel,
+  winnerReason,
 } = Astro.props;
-
-const url = Astro.url.pathname;
 ---
 
 <BaseLayout title={title} description={description}>
@@ -29,73 +30,75 @@ const url = Astro.url.pathname;
 
     <article>
       <header class="article-header">
-        <div class="changelog">Updated {new Date().toISOString().split('T')[0]} · {products.length} products compared</div>
+        <div class="changelog">Updated {new Date().toISOString().split('T')[0]} &middot; {products.length} products compared</div>
         <h1>{title}</h1>
-        {description && <p style="font-size:1.05rem;color:var(--text-secondary);line-height:1.6;margin-bottom:24px;">{description}</p>}
+        {description && <p class="article-desc">{description}</p>}
       </header>
 
       <p class="disclosure-inline">
         When you buy through our links, we may earn a commission.
-        <a href="/disclosure/">Here's how we choose</a> &mdash; commissions don't influence our picks.
+        <a href="/disclosure/">Here&rsquo;s how we choose</a> &mdash; commissions don&rsquo;t influence our picks.
       </p>
 
-      {products.map((product) => (
-        <div class="product-card">
-          <div class="product-card__header">
-            <div>
-              <div class="product-card__title">{product.name}</div>
-              <div class="product-card__brand">{product.brand}</div>
-            </div>
-            {product.label && <span class="product-card__label">{product.label}</span>}
-          </div>
-          <div class="product-card__price">
-            {product.price ? `$${product.price}` : 'Price not available'}
-          </div>
-          <div class="product-card__specs">
-            {product.specs && typeof product.specs === 'object' && Object.entries(product.specs).map(([key, value]) => (
-              <span>{value} <span class="sep">·</span></span>
-            ))}
-            <span>{product.rating} ★ from {product.reviewCount?.toLocaleString()}+ reviews</span>
-          </div>
-          {product.body && <p class="product-card__body">{product.body}</p>}
-          <a href={product.link || `/go/${product.asin}/`} class="product-card__cta">
-            View on Amazon &rarr;
-          </a>
-        </div>
-      ))}
+      {intro && <section class="intro"><p>{intro}</p></section>}
 
-      {guideSections.length > 0 && (
-        <section class="guide-section">
-          <h2>What actually matters when buying a {category?.toLowerCase() || 'product'}</h2>
-          {guideSections.map((section) => (
-            <div>
-              <h3>{section.title}</h3>
-              <p>{section.body}</p>
-            </div>
-          ))}
-        </section>
+      {winner && winnerLabel && (
+        <div class="verdict-box">
+          <div class="verdict-box__label">{winnerLabel}</div>
+          <div class="verdict-box__answer">
+            {products.find(p => p.asin === winner)?.title || winner}
+          </div>
+          {winnerReason && <div class="verdict-box__body">{winnerReason}</div>}
+        </div>
       )}
 
-      {faq.length > 0 && (
+      <section>
+        <h2>The contenders</h2>
+        {products.map((product) => (
+          <div class="product-card">
+            <div class="product-card__header">
+              <div>
+                <div class="product-card__title">
+                  <a href={product.affiliateUrl} rel="nofollow sponsored" target="_blank">{product.title}</a>
+                </div>
+                <div class="product-card__brand">{product.brand}</div>
+              </div>
+              {product.asin === winner && winnerLabel && <span class="product-card__label">{winnerLabel}</span>}
+            </div>
+            <div class="product-card__price">
+              {product.price ? `$${product.price}` : 'Price not available'}
+              {product.listPrice && <span class="list-price">$${product.listPrice}</span>}
+            </div>
+            <div class="product-card__specs">
+              {product.specs && typeof product.specs === 'object' && Object.entries(product.specs).map(([key, value]) => (
+                <span>{value} <span class="sep">&middot;</span></span>
+              ))}
+              <span>{product.rating} &starf; from {(product.reviewCount || 0).toLocaleString()}+ reviews</span>
+            </div>
+            {product.features && product.features.length > 0 && (
+              <ul class="feature-list">
+                {product.features.map((f) => <li>{f}</li>)}
+              </ul>
+            )}
+            <a href={product.affiliateUrl} class="product-card__cta" rel="nofollow sponsored" target="_blank">
+              Check Price on Amazon &rarr;
+            </a>
+            <div style="font-size:0.8rem;color:var(--text-tertiary);margin-top:4px;">As an Amazon Associate we earn from qualifying purchases.</div>
+          </div>
+        ))}
+      </section>
+
+      {howWeChose && <section class="guide-section" set:html={howWeChose} />}
+
+      {faqs.length > 0 && (
         <section class="faq">
           <h2>Common questions</h2>
-          {faq.map((item) => (
+          {faqs.map((item) => (
             <details class="faq-item">
               <summary>{item.question}</summary>
               <p>{item.answer}</p>
             </details>
           ))}
-        </section>
-      )}
-
-      {relatedPages.length > 0 && (
-        <section class="related">
-          <h2>More comparisons</h2>
-          <div class="related-list">
-            {relatedPages.map((p) => (
-              <a href={p.url}>{p.title} &rarr;</a>
-            ))}
-          </div>
         </section>
       )}
     </article>

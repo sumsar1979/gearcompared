@@ -1,21 +1,21 @@
 ---
-// ComparisonLayout — "X vs Y" head-to-head comparison pages
+// ComparisonLayout — "Best X: Year Comparison" multi-product comparison pages
 import BaseLayout from './BaseLayout.astro';
 
 const {
   title,
   description,
   category,
-  productA = {},
-  productB = {},
-  verdict = {},
-  specComparison = [],
-  detailSections = [],
+  products = [],
   breadcrumbs = [],
-  relatedPages = [],
+  winner,
+  winnerReason,
 } = Astro.props;
 
-const url = Astro.url.pathname;
+const winnerProduct = products.find(p => p.asin === winner);
+const allSpecs = new Set();
+products.forEach(p => { if (p.specs) Object.keys(p.specs).forEach(k => allSpecs.add(k)); });
+const specKeys = [...allSpecs];
 ---
 
 <BaseLayout title={title} description={description}>
@@ -31,76 +31,73 @@ const url = Astro.url.pathname;
 
     <article>
       <header class="article-header">
-        <div class="changelog">{category || 'Comparison'} · Updated {new Date().toISOString().split('T')[0]}</div>
+        <div class="changelog">{category?.replace(/-/g, ' ') || 'Comparison'} &middot; Updated {new Date().toISOString().split('T')[0]}</div>
         <h1>{title}</h1>
-        {description && <p style="font-size:1.05rem;color:var(--text-secondary);line-height:1.6;margin-bottom:24px;">{description}</p>}
+        {description && <p class="article-desc">{description}</p>}
       </header>
 
       <p class="disclosure-inline">
         When you buy through our links, we may earn a commission.
-        <a href="/disclosure/">Here's how we choose</a>.
+        <a href="/disclosure/">Here&rsquo;s how we choose</a>.
       </p>
 
-      <div class="verdict-box">
-        <div class="verdict-box__label">The short answer</div>
-        <div class="verdict-box__answer">{verdict.summary}</div>
-        {verdict.body && <div class="verdict-box__body">{verdict.body}</div>}
-      </div>
-
-      <div class="vs-grid">
-        <div class="vs-card">
-          <div class="vs-card__name">{productA.name}</div>
-          <div class="vs-card__brand">{productA.brand}</div>
-          <div class="vs-card__price">${productA.price || '?'}</div>
-          <div style="font-size:0.85rem;color:var(--text-tertiary)">{productA.rating} ★ · {productA.reviewCount?.toLocaleString()}+ reviews</div>
+      {winner && winnerProduct && (
+        <div class="verdict-box">
+          <div class="verdict-box__label">The short answer</div>
+          <div class="verdict-box__answer">{winnerProduct.title}</div>
+          {winnerReason && <div class="verdict-box__body">{winnerReason}</div>}
         </div>
-        <div class="vs-separator">vs</div>
-        <div class="vs-card">
-          <div class="vs-card__name">{productB.name}</div>
-          <div class="vs-card__brand">{productB.brand}</div>
-          <div class="vs-card__price">${productB.price || '?'}</div>
-          <div style="font-size:0.85rem;color:var(--text-tertiary)">{productB.rating} ★ · {productB.reviewCount?.toLocaleString()}+ reviews</div>
-        </div>
-      </div>
+      )}
 
       <section>
         <h2 style="font-size:1.3rem;margin-bottom:16px;">Every spec, side by side</h2>
-        <table class="specs-table">
-          <thead>
-            <tr><th>Spec</th><th>{productA.name}</th><th>{productB.name}</th><th>Winner</th></tr>
-          </thead>
-          <tbody>
-            {specComparison.map((row) => (
+        <div style="overflow-x:auto;">
+          <table class="specs-table">
+            <thead>
               <tr>
-                <td class="row-label">{row.label}</td>
-                <td class={row.winner === 'a' ? 'winner' : ''}>{row.valueA}</td>
-                <td class={row.winner === 'b' ? 'winner' : ''}>{row.valueB}</td>
-                <td class={row.winner && row.winner !== 'tie' ? 'winner' : ''}>
-                  {row.winner === 'a' ? productA.name : row.winner === 'b' ? productB.name : 'Tie'}
-                </td>
+                <th>Spec</th>
+                {products.map(p => <th>{p.brand}</th>)}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {specKeys.map(key => (
+                <tr>
+                  <td class="row-label">{key}</td>
+                  {products.map(p => <td>{p.specs?.[key] || '—'}</td>)}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </section>
 
-      {detailSections.map((section) => (
-        <section class="guide-section">
-          <h3>{section.title}</h3>
-          <p>{section.body}</p>
-        </section>
-      ))}
-
-      {relatedPages.length > 0 && (
-        <section class="related">
-          <h2>More comparisons</h2>
-          <div class="related-list">
-            {relatedPages.map((p) => (
-              <a href={p.url}>{p.title} &rarr;</a>
-            ))}
-          </div>
-        </section>
-      )}
+      <section>
+        <h2>Price comparison</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
+          {products.map(p => (
+            <div class="product-card">
+              <div class="product-card__title">{p.title}</div>
+              <div class="product-card__brand">{p.brand}</div>
+              <div class="product-card__price">
+                ${p.price || '?'}
+                {p.listPrice && <span class="list-price">${p.listPrice}</span>}
+              </div>
+              <div style="font-size:0.85rem;color:var(--text-tertiary);margin-bottom:12px;">
+                {p.rating} &starf; &middot; {(p.reviewCount || 0).toLocaleString()}+ reviews
+              </div>
+              {p.features && (
+                <ul class="feature-list">
+                  {p.features.slice(0, 3).map(f => <li>{f}</li>)}
+                </ul>
+              )}
+              <a href={p.affiliateUrl} class="product-card__cta" rel="nofollow sponsored" target="_blank">
+                View on Amazon &rarr;
+              </a>
+              <div style="font-size:0.75rem;color:var(--text-tertiary);margin-top:6px;">As an Amazon Associate we earn from qualifying purchases.</div>
+            </div>
+          ))}
+        </div>
+      </section>
     </article>
   </main>
 </BaseLayout>

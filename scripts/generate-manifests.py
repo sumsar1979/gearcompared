@@ -97,12 +97,13 @@ def roundup_manifest(cat, prods, sub=None):
         "faqs":[{"question":q,"answer":a} for q,a in FAQS.get(sub or cat,[])],
     }
 
-def comparison_manifest(cat, sub, prods):
+def comparison_manifest(cat, sub, prods, is_redundant=False):
     if len(prods)<2: return None
     top = sorted(prods, key=lambda p: p.get("rating",0)*p.get("reviewCount",0), reverse=True)[:4]
     w = top[0]
+    slug = f"{S(cat)}/compare" if is_redundant else f"{S(cat)}/{S(sub)}/compare"
     return {
-        "type":"comparison","slug":f"{S(cat)}/{S(sub)}/compare",
+        "type":"comparison","slug":slug,
         "title":f"Best {sub.replace('-',' ').title()}: {datetime.now().year} Comparison",
         "description":f"We compared top {sub.replace('-',' ')} side by side on performance and value.",
         "category":cat,"subcategory":sub,
@@ -152,7 +153,12 @@ With {p['reviewCount']:,} reviews averaging {p['rating']} stars, buyers consiste
 
 def cat_hub(cat, sub_data):
     all_p = [p for prods in sub_data.values() for p in prods]
-    links = [{"name":sub.replace("-"," ").title(),"slug":f"{S(cat)}/{S(sub)}","description":f"{len(prods)} products"} for sub,prods in sub_data.items()]
+    # Filter out subcategories that are just the category name itself
+    links = []
+    for sub, prods in sub_data.items():
+        if S(sub) == S(cat):
+            continue  # skip redundant self-reference
+        links.append({"name":sub.replace("-"," ").title(),"slug":f"{S(cat)}/{S(sub)}","description":f"{len(prods)} products"})
     return {
         "type":"category","slug":S(cat),
         "title":f"Best {cat.replace('-',' ').title()} — Expert Reviews & Comparisons",
@@ -187,10 +193,15 @@ def main():
         mans.append(cat_hub(cat, data)); total+=1
         if cat=="standing-desks": mans.append(roundup_manifest(cat, all_p)); total+=1
         for sub, prods in data.items():
-            mans.append(sub_hub(cat, sub, prods)); total+=1
-            mans.append(roundup_manifest(cat, prods, sub)); total+=1
-            c = comparison_manifest(cat, sub, prods)
-            if c: mans.append(c); total+=1
+            is_redundant = S(sub) == S(cat)
+            if not is_redundant:
+                mans.append(sub_hub(cat, sub, prods)); total+=1
+                mans.append(roundup_manifest(cat, prods, sub)); total+=1
+                c = comparison_manifest(cat, sub, prods)
+                if c: mans.append(c); total+=1
+            else:
+                c = comparison_manifest(cat, sub, prods, is_redundant=True)
+                if c: mans.append(c); total+=1
             for p in prods:
                 mans.append(product_manifest(cat, p, prods)); total+=1
         with open(MD/f"{cat}.json","w") as f: json.dump(mans,f,indent=2)

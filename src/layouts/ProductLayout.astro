@@ -1,5 +1,5 @@
 ---
-// ProductLayout — Single product detail page
+// ProductLayout — Single product review page
 import BaseLayout from './BaseLayout.astro';
 
 const {
@@ -8,6 +8,7 @@ const {
   category,
   products = [],
   breadcrumbs = [],
+  body,
   relatedProducts = [],
 } = Astro.props;
 
@@ -27,20 +28,23 @@ const product = products[0] || {};
 
     <article>
       <header class="article-header">
-        <h1>{product.name}</h1>
+        <h1>{product.title || title}</h1>
         <div style="font-size:1rem;color:var(--text-tertiary);margin-bottom:12px;">{product.brand}</div>
-        <p style="font-size:1.05rem;color:var(--text-secondary);">{description}</p>
+        <p class="article-desc">{description}</p>
       </header>
 
       <p class="disclosure-inline">
         When you buy through our links, we may earn a commission.
-        <a href="/disclosure/">Here's how we choose</a>.
+        <a href="/disclosure/">Here&rsquo;s how we choose</a>.
       </p>
 
       <div class="product-card">
-        <div class="product-card__price">${product.price || '?'}</div>
+        <div class="product-card__price">
+          ${product.price || '?'}
+          {product.listPrice && <span class="list-price">${product.listPrice}</span>}
+        </div>
         <div class="product-card__specs">
-          {product.rating && <span>{product.rating} ★ · {(product.reviewCount || 0).toLocaleString()} reviews</span>}
+          {product.rating && <span>{product.rating} &starf; &middot; {(product.reviewCount || 0).toLocaleString()} reviews</span>}
         </div>
         {product.specs && typeof product.specs === 'object' && (
           <table class="specs-table">
@@ -51,19 +55,23 @@ const product = products[0] || {};
             </tbody>
           </table>
         )}
-        {product.body && <p class="product-card__body">{product.body}</p>}
-        <a href={product.link || `/go/${product.asin}/`} class="product-card__cta">
-          View on Amazon &rarr;
+        <a href={product.affiliateUrl} class="product-card__cta" rel="nofollow sponsored" target="_blank">
+          Check Price on Amazon &rarr;
         </a>
+        <div style="font-size:0.8rem;color:var(--text-tertiary);margin-top:8px;">
+          As an Amazon Associate we earn from qualifying purchases.
+        </div>
       </div>
+
+      {body && <section class="guide-section" set:html={body} />}
 
       {relatedProducts && relatedProducts.length > 0 && (
         <section class="related">
           <h2>Compare with similar products</h2>
           <div class="related-list">
             {relatedProducts.map((p) => (
-              <a href={`/${category}/compare/${product.asin}-vs-${p.asin}/`}>
-                {product.name} vs {p.name} &rarr;
+              <a href={p.affiliateUrl} rel="nofollow sponsored" target="_blank">
+                {p.title} ({p.rating} &starf;) &rarr;
               </a>
             ))}
           </div>

@@ -61,14 +61,14 @@ const {
     )}
 
     <div style="margin-top:40px;">
-      {subcategoryLinks.length > 0 && subcategoryLinks[0].slug && (
-        <a href={`/best-${category.replace(/-/g, ' ').split(' ')[0]}s/`} style="font-family:var(--font-ui);font-size:0.9rem;">
-          See all {category.replace(/-/g, ' ')} &rarr;
+      {subcategoryLinks.length > 0 && (
+        <a href={`/${subcategoryLinks[0].slug}/`} style="font-family:var(--font-ui);font-size:0.9rem;">
+          Browse {subcategoryLinks[0].name} &rarr;
         </a>
       )}
-      {subcategoryLinks.length === 0 && (
-        <a href={`/${category}/`} style="font-family:var(--font-ui);font-size:0.9rem;">
-          Browse all products &rarr;
+      {subcategoryLinks.length === 0 && products.length > 0 && (
+        <a href={`/${category}/best-${category}/`} style="font-family:var(--font-ui);font-size:0.9rem;">
+          See our full roundup &rarr;
         </a>
       )}
     </div>
