@@ -1,0 +1,163 @@
+---
+// CategoryLayout: Category hub pages
+import type { ProductData, Breadcrumb } from '../lib/structured-data';
+import { generateItemListLD, generateBreadcrumbLD, mergeLD } from '../lib/structured-data';
+import { config } from '../lib/config';
+import { asinToAffiliateUrl } from '../lib/affiliate';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  products: ProductData[];
+  category: string;
+  subcategory?: string;
+  breadcrumbs: Breadcrumb[];
+  subcategoryLinks?: { name: string; slug: string; description: string }[];
+}
+
+const {
+  title,
+  description,
+  products,
+  category,
+  subcategory,
+  breadcrumbs,
+  subcategoryLinks,
+} = Astro.props;
+
+const pageUrl = Astro.url.href;
+
+const ldJson = mergeLD(
+  generateItemListLD(products, title, pageUrl),
+  generateBreadcrumbLD(breadcrumbs),
+);
+
+const catConfig = config.categories.find((c) => c.slug === category);
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} — {config.siteName}</title>
+  <meta name="description" content={description} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={pageUrl} />
+  <meta property="og:site_name" content={config.siteName} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json" set:html={JSON.stringify(ldJson)}>
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="site-logo">Gear<span>Compared</span></a>
+      <nav class="site-nav" aria-label="Main navigation">
+        {config.categories.map((cat) => (
+          <a href={`/${cat.slug}/`} class={cat.slug === category ? 'active' : ''}>
+            {cat.name}
+          </a>
+        ))}
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-hero">
+      <div class="container container--content">
+        <h1>{title}</h1>
+        <p>{description}</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        {breadcrumbs.map((b, i) => (
+          <>
+            {i > 0 && <span class="sep">›</span>}
+            {b.url ? <a href={b.url}>{b.name}</a> : <span>{b.name}</span>}
+          </>
+        ))}
+      </nav>
+
+      {/* Subcategory links */}
+      {subcategoryLinks && subcategoryLinks.length > 0 && (
+        <section style="margin: var(--space-6) 0;">
+          <h2>Browse by Subcategory</h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--space-4); margin-top: var(--space-4);">
+            {subcategoryLinks.map((sc) => (
+              <a 
+                href={`/${category}/${sc.slug}/`}
+                style="padding: var(--space-4); border: 1px solid var(--color-border-light); border-radius: var(--radius-md); text-decoration: none; transition: box-shadow var(--transition-fast);"
+              >
+                <h3 style="font-size: var(--fs-lg); color: var(--color-primary); margin-bottom: var(--space-1);">{sc.name}</h3>
+                <p style="font-size: var(--fs-sm); color: var(--color-text-muted);">{sc.description}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Top Products */}
+      <section style="margin-top: var(--space-8);">
+        <h2>Top {catConfig?.name || 'Products'}</h2>
+        <div class="product-grid">
+          {products.map((p) => (
+            <article class="product-card">
+              <img src={p.imageUrl} alt={p.title} class="product-card__image" loading="lazy" />
+              <div class="product-card__body">
+                <h3 class="product-card__title">
+                  <a href={`/${category}/product/${p.asin}/`}>{p.title}</a>
+                </h3>
+                <p class="product-card__brand">{p.brand}</p>
+                <div class="product-card__rating">
+                  ★ {p.rating.toFixed(1)}
+                  <span class="product-card__rating-count">({p.reviewCount.toLocaleString()})</span>
+                </div>
+                <div class="product-card__price">
+                  ${p.price.toFixed(2)}
+                  {p.listPrice && p.listPrice > p.price && <del>${p.listPrice.toFixed(2)}</del>}
+                </div>
+                <a href={asinToAffiliateUrl(p.asin)} class="product-card__cta" target="_blank" rel="nofollow sponsored">
+                  View on Amazon
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* Category comparison links */}
+      <section style="margin: var(--space-10) 0; text-align: center;">
+        <h2>Popular Comparisons</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: var(--space-3); justify-content: center; margin-top: var(--space-4);">
+          {products.slice(0, 6).flatMap((p1, i) =>
+            products.slice(i + 1, i + 2).map((p2) => (
+              <a 
+                href={`/${category}/compare/${p1.asin}-vs-${p2.asin}/`}
+                style="padding: var(--space-2) var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-xl); font-size: var(--fs-sm); color: var(--color-primary); transition: all var(--transition-fast);"
+              >
+                {p1.title.split(' ').slice(0, 3).join(' ')} vs {p2.title.split(' ').slice(0, 3).join(' ')}
+              </a>
+            ))
+          )}
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© {new Date().getFullYear()} {config.siteName}. All rights reserved.</p>
+      <div class="site-footer__links">
+        <a href="/about/">About</a>
+        <a href="/privacy/">Privacy Policy</a>
+        <a href="/disclosure/">Affiliate Disclosure</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

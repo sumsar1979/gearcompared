@@ -1,0 +1,285 @@
+[
+  {
+    "asin": "B0000TEST000",
+    "title": "Autonomous Core Standing Desk",
+    "brand": "Autonomous",
+    "category": "standing-desks",
+    "subcategory": null,
+    "price": 460.09,
+    "listPrice": null,
+    "rating": 4.6,
+    "reviewCount": 3621,
+    "imageUrl": "https://picsum.photos/seed/B0000TEST000/600/600",
+    "specs": {
+      "Height Range": "25.5\" - 51\"",
+      "Weight Capacity": "355 lbs",
+      "Desktop Size": "55\" x 28\"",
+      "Material": "Oak",
+      "Motor Type": "Crank",
+      "RPM": "Medium"
+    },
+    "features": [
+      "Whisper-quiet motor operation",
+      "LED display with height readout",
+      "15-year warranty on frame",
+      "Child lock safety feature",
+      "Electric height adjustment with memory presets"
+    ],
+    "affiliateUrl": "https://www.amazon.com/dp/B0000TEST000?tag=gearcompared-20",
+    "lastUpdated": "2026-05-17T17:50:43.110486+00:00"
+  },
+  {
+    "asin": "B0000TEST001",
+    "title": "Fully L-Shaped Standing Desk",
+    "brand": "Fully",
+    "category": "standing-desks",
+    "subcategory": null,
+    "price": 786.23,
+    "listPrice": null,
+    "rating": 4.4,
+    "reviewCount": 518,
+    "imageUrl": "https://picsum.photos/seed/B0000TEST001/600/600",
+    "specs": {
+      "Height Range": "25.5\" - 51\"",
+      "Weight Capacity": "250 lbs",
+      "Desktop Size": "60\" x 30\"",
+      "Material": "White Laminate",
+      "Motor Type": "Dual Motor",
+      "RPM": "Standard"
+    },
+    "features": [
+      "Electric height adjustment with memory presets",
+      "15-year warranty on frame",
+      "Spill-resistant surface coating",
+      "Child lock safety feature",
+      "Adjustable leveling feet"
+    ],
+    "affiliateUrl": "https://www.amazon.com/dp/B0000TEST001?tag=gearcompared-20",
+    "lastUpdated": "2026-05-17T17:50:43.110525+00:00"
+  },
+  {
+    "asin": "B0000TEST002",
+    "title": "ApexDesk Stand Up Standing Desk",
+    "brand": "ApexDesk",
+    "category": "standing-desks",
+    "subcategory": null,
+    "price": 265.17,
+    "listPrice": 308.11,
+    "rating": 4.1,
+    "reviewCount": 10123,
+    "imageUrl": "https://picsum.photos/seed/B0000TEST002/600/600",
+    "specs": {
+      "Height Range": "27\" - 45\"",
+      "Weight Capacity": "150 lbs",
+      "Desktop Size": "48\" x 24\"",
+      "Material": "Bamboo",
+      "Motor Type": "Pneumatic",
+      "RPM": "Standard"
+    },
+    "features": [
+      "Quick 10-minute assembly",
+      "Spill-resistant surface coating",
+      "Whisper-quiet motor operation"
+    ],
+    "affiliateUrl": "https://www.amazon.com/dp/B0000TEST002?tag=gearcompared-20",
+    "lastUpdated": "2026-05-17T17:50:43.110548+00:00"
+  },
+  {
+    "asin": "B0000TEST003",
+    "title": "ApexDesk Jarvis Standing Desk",
+    "brand": "ApexDesk",
+    "category": "standing-desks",
+    "subcategory": null,
+    "price": 873.22,
+    "listPrice": null,
+    "rating": 4.9,
+    "reviewCount": 8014,
+    "imageUrl": "https://picsum.photos/seed/B0000TEST003/600/600",
+    "specs": {
+      "Height Range": "29\" - 48\"",
+      "Weight Capacity": "250 lbs",
+      "Desktop Size": "60\" x 24\"",
+      "Material": "Reclaimed Wood",
+      "Motor Type": "Pneumatic",
+      "RPM": "Standard"
+    },
+    "features": [
+      "Crossbar for extra stability",
+      "15-year warranty on frame",
+      "Child lock safety feature"
+    ],
+    "affiliateUrl": "https://www.amazon.com/dp/B0000TEST003?tag=gearcompared-20",
+    "lastUpdated": "2026-05-17T17:50:43.110566+00:00"
+  },
+  {
+    "asin": "B0000TEST004",
+    "title": "Fully V2 Standing Desk",
+    "brand": "Fully",
+    "category": "standing-desks",
+    "subcategory": null,
+    "price": 860.01,
+    "listPrice": null,
+    "rating": 4.8,
+    "reviewCount": 5123,
+    "imageUrl": "https://picsum.photos/seed/B0000TEST004/600/600",
+    "specs": {
+      "Height Range": "28\" - 47.5\"",
+      "Weight Capacity": "275 lbs",
+      "Desktop Size": "48\" x 24\"",
+      "Material": "Oak",
+      "Motor Type": "Crank",
+      "RPM": "Medium"
+    },
+    "features": [
+      "LED display with height readout",
+      "15-year warranty on frame",
+      "Programmable height settings",
+      "Anti-collision technology",
+      "Child lock safety feature"
+    ],
+    "affiliateUrl": "https://www.amazon.com/dp/B0000TEST004?tag=gearcompared-20",
+    "lastUpdated": "2026-05-17T17:50:43.110582+00:00"
+  },
+  {
+    "asin": "B0000TEST005",
+    "title": "FEZIBO L-Shaped Standing Desk",
+    "brand": "FEZIBO",
+    "category": "standing-desks",
+    "subcategory": null,
+    "price": 844.95,
+    "listPrice": 1016.6,
+    "rating": 4.1,
+    "reviewCount": 6943,
+    "imageUrl": "https://picsum.photos/seed/B0000TEST005/600/600",
+    "specs": {
+      "Height Range": "29\" - 48\"",
+      "Weight Capacity": "355 lbs",
+      "Desktop Size": "55\" x 28\"",
+      "Material": "Walnut",
+      "Motor Type": "Crank",
+      "RPM": "High"
+    },
+    "features": [
+      "Child lock safety feature",
+      "Electric height adjustment with memory presets",
+      "Anti-collision technology",
+      "Crossbar for extra stability"
+    ],
+    "affiliateUrl": "https://www.amazon.com/dp/B0000TEST005?tag=gearcompared-20",
+    "lastUpdated": "2026-05-17T17:50:43.110598+00:00"
+  },
+  {
+    "asin": "B0000TEST006",
+    "title": "FlexiSpot Core Standing Desk",
+    "brand": "FlexiSpot",
+    "category": "standing-desks",
+    "subcategory": null,
+    "price": 894.47,
+    "listPrice": 1298.14,
+    "rating": 3.9,
+    "reviewCount": 9071,
+    "imageUrl": "https://picsum.photos/seed/B0000TEST006/600/600",
+    "specs": {
+      "Height Range": "27\" - 45\"",
+      "Weight Capacity": "250 lbs",
+      "Desktop Size": "48\" x 30\"",
+      "Material": "Black Laminate",
+      "Motor Type": "Crank",
+      "RPM": "Medium"
+    },
+    "features": [
+      "Cable management tray included",
+      "Quick 10-minute assembly",
+      "LED display with height readout"
+    ],
+    "affiliateUrl": "https://www.amazon.com/dp/B0000TEST006?tag=gearcompared-20",
+    "lastUpdated": "2026-05-17T17:50:43.110614+00:00"
+  },
+  {
+    "asin": "B0000TEST007",
+    "title": "Uplift Elite Standing Desk",
+    "brand": "Uplift",
+    "category": "standing-desks",
+    "subcategory": null,
+    "price": 536.19,
+    "listPrice": null,
+    "rating": 4.4,
+    "reviewCount": 9000,
+    "imageUrl": "https://picsum.photos/seed/B0000TEST007/600/600",
+    "specs": {
+      "Height Range": "25.5\" - 51\"",
+      "Weight Capacity": "150 lbs",
+      "Desktop Size": "48\" x 30\"",
+      "Material": "Walnut",
+      "Motor Type": "Single Motor",
+      "RPM": "Quiet-Drive"
+    },
+    "features": [
+      "Child lock safety feature",
+      "LED display with height readout",
+      "Ergonomic curved front edge",
+      "Crossbar for extra stability",
+      "Adjustable leveling feet"
+    ],
+    "affiliateUrl": "https://www.amazon.com/dp/B0000TEST007?tag=gearcompared-20",
+    "lastUpdated": "2026-05-17T17:50:43.110628+00:00"
+  },
+  {
+    "asin": "B0000TEST008",
+    "title": "Fully Stand Up Standing Desk",
+    "brand": "Fully",
+    "category": "standing-desks",
+    "subcategory": null,
+    "price": 621.31,
+    "listPrice": null,
+    "rating": 4.3,
+    "reviewCount": 3669,
+    "imageUrl": "https://picsum.photos/seed/B0000TEST008/600/600",
+    "specs": {
+      "Height Range": "25.5\" - 51\"",
+      "Weight Capacity": "355 lbs",
+      "Desktop Size": "60\" x 24\"",
+      "Material": "Walnut",
+      "Motor Type": "Pneumatic",
+      "RPM": "Quiet-Drive"
+    },
+    "features": [
+      "LED display with height readout",
+      "Crossbar for extra stability",
+      "Spill-resistant surface coating",
+      "Programmable height settings",
+      "Adjustable leveling feet"
+    ],
+    "affiliateUrl": "https://www.amazon.com/dp/B0000TEST008?tag=gearcompared-20",
+    "lastUpdated": "2026-05-17T17:50:43.110643+00:00"
+  },
+  {
+    "asin": "B0000TEST009",
+    "title": "Fully SmartDesk Standing Desk",
+    "brand": "Fully",
+    "category": "standing-desks",
+    "subcategory": null,
+    "price": 413.7,
+    "listPrice": 605.21,
+    "rating": 4.4,
+    "reviewCount": 2812,
+    "imageUrl": "https://picsum.photos/seed/B0000TEST009/600/600",
+    "specs": {
+      "Height Range": "27\" - 45\"",
+      "Weight Capacity": "150 lbs",
+      "Desktop Size": "60\" x 24\"",
+      "Material": "Black Laminate",
+      "Motor Type": "Crank",
+      "RPM": "High"
+    },
+    "features": [
+      "Ergonomic curved front edge",
+      "Quick 10-minute assembly",
+      "15-year warranty on frame",
+      "Programmable height settings",
+      "LED display with height readout"
+    ],
+    "affiliateUrl": "https://www.amazon.com/dp/B0000TEST009?tag=gearcompared-20",
+    "lastUpdated": "2026-05-17T17:50:43.110658+00:00"
+  }
+]

@@ -1,0 +1,233 @@
+---
+// ComparisonLayout: "X vs Y" product comparison pages
+import type { ProductData, Breadcrumb } from '../lib/structured-data';
+import { generateComparisonLD, generateBreadcrumbLD, mergeLD } from '../lib/structured-data';
+import { config } from '../lib/config';
+import { asinToAffiliateUrl } from '../lib/affiliate';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  products: ProductData[];
+  category: string;
+  subcategory?: string;
+  breadcrumbs: Breadcrumb[];
+  winner?: string; // ASIN of winner
+  winnerReason?: string;
+}
+
+const {
+  title,
+  description,
+  products,
+  category,
+  subcategory,
+  breadcrumbs,
+  winner,
+  winnerReason,
+} = Astro.props;
+
+const pageUrl = Astro.url.href;
+
+const ldJson = mergeLD(
+  generateComparisonLD(products, title, pageUrl),
+  generateBreadcrumbLD(breadcrumbs),
+);
+
+const catConfig = config.categories.find((c) => c.slug === category);
+const categoryName = catConfig?.name || category;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} — {config.siteName}</title>
+  <meta name="description" content={description} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={pageUrl} />
+  <meta property="og:site_name" content={config.siteName} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json" set:html={JSON.stringify(ldJson)}>
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="site-logo">Gear<span>Compared</span></a>
+      <nav class="site-nav" aria-label="Main navigation">
+        {config.categories.map((cat) => (
+          <a href={`/${cat.slug}/`}>{cat.name}</a>
+        ))}
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-hero">
+      <div class="container container--content">
+        <h1>{title}</h1>
+        <p>{description}</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Breadcrumbs -->
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        {breadcrumbs.map((b, i) => (
+          <>
+            {i > 0 && <span class="sep">›</span>}
+            {b.url ? <a href={b.url}>{b.name}</a> : <span>{b.name}</span>}
+          </>
+        ))}
+      </nav>
+
+      <div class="affiliate-disclaimer">
+        <strong>Disclosure:</strong> As an Amazon Associate we earn from qualifying purchases. 
+        This comes at no additional cost to you.
+      </div>
+
+      <!-- Winner callout -->
+      {winner && (
+        <div style="background: var(--color-primary-light); border-radius: var(--radius-lg); padding: var(--space-6); margin: var(--space-6) 0; text-align: center;">
+          <h3 style="color: var(--color-primary); margin-bottom: var(--space-2);">
+            🏆 Our Pick: {products.find((p) => p.asin === winner)?.title || 'Winner'}
+          </h3>
+          {winnerReason && <p style="color: var(--color-text-muted);">{winnerReason}</p>}
+        </div>
+      )}
+
+      <!-- Comparison Table -->
+      <section>
+        <h2>Quick Comparison</h2>
+        <div style="overflow-x: auto;">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Rating</th>
+                <th>Price</th>
+                <th>Key Spec</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {products.map((p) => (
+                <tr class={p.asin === winner ? 'winner' : ''}>
+                  <td>
+                    <a href={`/${category}/product/${p.asin}/`}>
+                      <strong>{p.title}</strong>
+                    </a>
+                    <div style="font-size: var(--fs-xs); color: var(--color-text-muted);">{p.brand}</div>
+                  </td>
+                  <td>
+                    <span style="color: var(--color-warning);">★</span> {p.rating.toFixed(1)}
+                    <div style="font-size: var(--fs-xs); color: var(--color-text-muted);">
+                      ({p.reviewCount.toLocaleString()} reviews)
+                    </div>
+                  </td>
+                  <td>
+                    <strong>${p.price.toFixed(2)}</strong>
+                    {p.listPrice && p.listPrice > p.price && (
+                      <div><del style="color: var(--color-text-muted); font-size: var(--fs-xs);">
+                        ${p.listPrice.toFixed(2)}
+                      </del></div>
+                    )}
+                  </td>
+                  <td style="font-size: var(--fs-sm);">
+                    {Object.entries(p.specs).slice(0, 2).map(([k, v]) => (
+                      <div><strong>{k}:</strong> {v}</div>
+                    ))}
+                  </td>
+                  <td>
+                    <a href={asinToAffiliateUrl(p.asin)} class="product-card__cta" target="_blank" rel="nofollow sponsored">
+                      View on Amazon
+                    </a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Detailed Comparison -->
+      <section style="margin-top: var(--space-10);">
+        <h2>Detailed Comparison</h2>
+        {products.map((p, idx) => (
+          <article style="margin-top: var(--space-8); padding-top: var(--space-8); border-top: 1px solid var(--color-border-light);">
+            <div style="display: flex; gap: var(--space-6); align-items: flex-start;">
+              <img 
+                src={p.imageUrl} 
+                alt={p.title} 
+                style="width: 200px; height: 200px; object-fit: contain; background: var(--color-bg-alt); border-radius: var(--radius-md);" 
+              />
+              <div style="flex: 1;">
+                <h3>
+                  <a href={`/${category}/product/${p.asin}/`}>{p.title}</a>
+                  {p.asin === winner && <span style="color: var(--color-accent); font-size: var(--fs-sm); margin-left: var(--space-2);">★ Our Pick</span>}
+                </h3>
+                <p style="color: var(--color-text-muted); font-size: var(--fs-sm); margin-bottom: var(--space-3);">
+                  {p.brand} • {p.rating.toFixed(1)} ★ ({p.reviewCount.toLocaleString()} reviews)
+                </p>
+
+                {/* Specs */}
+                <table class="specs-table">
+                  {Object.entries(p.specs).map(([k, v]) => (
+                    <tr>
+                      <td>{k}</td>
+                      <td>{v}</td>
+                    </tr>
+                  ))}
+                </table>
+
+                {/* Features */}
+                {p.features.length > 0 && (
+                  <div style="margin-top: var(--space-3);">
+                    <h4>Key Features</h4>
+                    <ul style="list-style: disc; padding-left: var(--space-5); font-size: var(--fs-sm);">
+                      {p.features.slice(0, 5).map((f) => (
+                        <li>{f}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                <div style="margin-top: var(--space-4);">
+                  <span style="font-size: var(--fs-2xl); font-weight: var(--fw-bold);">${p.price.toFixed(2)}</span>
+                  {p.listPrice && p.listPrice > p.price && (
+                    <del style="color: var(--color-text-muted); margin-left: var(--space-2);">${p.listPrice.toFixed(2)}</del>
+                  )}
+                  <a 
+                    href={asinToAffiliateUrl(p.asin)} 
+                    class="product-card__cta" 
+                    target="_blank" 
+                    rel="nofollow sponsored"
+                    style="margin-left: var(--space-4); display: inline-block;"
+                  >
+                    Check Price on Amazon
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© {new Date().getFullYear()} {config.siteName}. All rights reserved.</p>
+      <div class="site-footer__links">
+        <a href="/about/">About</a>
+        <a href="/privacy/">Privacy Policy</a>
+        <a href="/disclosure/">Affiliate Disclosure</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

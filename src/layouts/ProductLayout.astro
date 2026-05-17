@@ -1,0 +1,201 @@
+---
+// ProductLayout: Single product detail page
+import type { ProductData, Breadcrumb } from '../lib/structured-data';
+import { generateProductLD, generateBreadcrumbLD, mergeLD } from '../lib/structured-data';
+import { config } from '../lib/config';
+import { asinToAffiliateUrl } from '../lib/affiliate';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  products: ProductData[]; // First element is the main product
+  category: string;
+  subcategory?: string;
+  breadcrumbs: Breadcrumb[];
+  relatedProducts?: ProductData[];
+}
+
+const {
+  title,
+  description,
+  products,
+  category,
+  subcategory,
+  breadcrumbs,
+  relatedProducts,
+} = Astro.props;
+
+const product = products[0];
+const pageUrl = Astro.url.href;
+
+const ldJson = mergeLD(
+  generateProductLD(product),
+  generateBreadcrumbLD(breadcrumbs),
+);
+
+const catConfig = config.categories.find((c) => c.slug === category);
+const categoryName = catConfig?.name || category;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} — {config.siteName}</title>
+  <meta name="description" content={description} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="product" />
+  <meta property="og:url" content={pageUrl} />
+  <meta property="og:image" content={product.imageUrl} />
+  <meta property="og:site_name" content={config.siteName} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json" set:html={JSON.stringify(ldJson)}>
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="site-logo">Gear<span>Compared</span></a>
+      <nav class="site-nav" aria-label="Main navigation">
+        {config.categories.map((cat) => (
+          <a href={`/${cat.slug}/`}>{cat.name}</a>
+        ))}
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container" style="padding-top: var(--space-8);">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        {breadcrumbs.map((b, i) => (
+          <>
+            {i > 0 && <span class="sep">›</span>}
+            {b.url ? <a href={b.url}>{b.name}</a> : <span>{b.name}</span>}
+          </>
+        ))}
+      </nav>
+
+      <div class="affiliate-disclaimer">
+        <strong>Disclosure:</strong> As an Amazon Associate we earn from qualifying purchases.
+      </div>
+
+      {/* Product Hero */}
+      <section style="display: flex; gap: var(--space-8); margin: var(--space-6) 0; align-items: flex-start;">
+        <img 
+          src={product.imageUrl} 
+          alt={product.title} 
+          style="width: 350px; height: 350px; object-fit: contain; background: var(--color-bg-alt); border-radius: var(--radius-lg); flex-shrink: 0;"
+        />
+        <div style="flex: 1;">
+          <h1>{product.title}</h1>
+          <p style="color: var(--color-text-muted); font-size: var(--fs-lg);">by {product.brand}</p>
+          
+          <div style="display: flex; align-items: center; gap: var(--space-3); margin: var(--space-4) 0;">
+            <div class="product-card__rating" style="font-size: var(--fs-xl);">
+              {'★'.repeat(Math.round(product.rating))}{'☆'.repeat(5 - Math.round(product.rating))} {product.rating.toFixed(1)}
+            </div>
+            <span style="font-size: var(--fs-sm); color: var(--color-text-muted);">
+              ({product.reviewCount.toLocaleString()} reviews)
+            </span>
+          </div>
+
+          <div style="margin: var(--space-4) 0;">
+            <span style="font-size: var(--fs-4xl); font-weight: var(--fw-bold); color: var(--color-primary);">
+              ${product.price.toFixed(2)}
+            </span>
+            {product.listPrice && product.listPrice > product.price && (
+              <div>
+                <del style="color: var(--color-text-muted);">List: ${product.listPrice.toFixed(2)}</del>
+                <span style="color: var(--color-success); margin-left: var(--space-2); font-weight: var(--fw-semibold);">
+                  Save ${((product.listPrice - product.price)).toFixed(2)} ({Math.round((product.listPrice - product.price) / product.listPrice * 100)}% off)
+                </span>
+              </div>
+            )}
+          </div>
+
+          <a 
+            href={asinToAffiliateUrl(product.asin)} 
+            class="product-card__cta" 
+            target="_blank" 
+            rel="nofollow sponsored"
+            style="font-size: var(--fs-lg); padding: var(--space-3) var(--space-8);"
+          >
+            View on Amazon →
+          </a>
+        </div>
+      </section>
+
+      {/* Specifications */}
+      <section style="margin-top: var(--space-10);">
+        <h2>Specifications</h2>
+        <table class="specs-table">
+          {Object.entries(product.specs).map(([k, v]) => (
+            <tr>
+              <td>{k}</td>
+              <td>{v}</td>
+            </tr>
+          ))}
+        </table>
+      </section>
+
+      {/* Features */}
+      {product.features.length > 0 && (
+        <section style="margin-top: var(--space-10);">
+          <h2>Key Features</h2>
+          <ul style="list-style: disc; padding-left: var(--space-5); display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2);">
+            {product.features.map((f) => (
+              <li style="font-size: var(--fs-base);">{f}</li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {/* Related Products */}
+      {relatedProducts && relatedProducts.length > 0 && (
+        <section style="margin-top: var(--space-12);">
+          <h2>Compare With Similar Products</h2>
+          <div class="product-grid">
+            {relatedProducts.map((p) => (
+              <article class="product-card">
+                <img src={p.imageUrl} alt={p.title} class="product-card__image" loading="lazy" />
+                <div class="product-card__body">
+                  <h3 class="product-card__title">
+                    <a href={`/${category}/product/${p.asin}/`}>{p.title}</a>
+                  </h3>
+                  <p class="product-card__brand">{p.brand}</p>
+                  <div class="product-card__rating">
+                    ★ {p.rating.toFixed(1)}
+                    <span class="product-card__rating-count">({p.reviewCount.toLocaleString()})</span>
+                  </div>
+                  <div class="product-card__price">
+                    ${p.price.toFixed(2)}
+                    {p.listPrice && p.listPrice > p.price && (
+                      <del>${p.listPrice.toFixed(2)}</del>
+                    )}
+                  </div>
+                  <a href={asinToAffiliateUrl(p.asin)} class="product-card__cta" target="_blank" rel="nofollow sponsored">
+                    View on Amazon
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© {new Date().getFullYear()} {config.siteName}. All rights reserved.</p>
+      <div class="site-footer__links">
+        <a href="/about/">About</a>
+        <a href="/privacy/">Privacy Policy</a>
+        <a href="/disclosure/">Affiliate Disclosure</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "gearcompared",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Programmatic SEO affiliate site comparing standing desks and kitchen appliances",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "fetch": "python scripts/fetch-products.py",
+    "fetch:mock": "python scripts/fetch-products.py --mock",
+    "generate": "python scripts/generate-pages.py",
+    "health": "python scripts/health-check.py"
+  },
+  "dependencies": {
+    "astro": "^6.3.3"
+  }
+}

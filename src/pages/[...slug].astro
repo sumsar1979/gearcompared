@@ -1,0 +1,107 @@
+---
+// Catch-all routing: [...slug].astro
+// Reads page manifests and renders the appropriate layout
+import type { ProductData, Breadcrumb } from '../lib/structured-data';
+import { config } from '../lib/config';
+
+// Import layouts
+import ComparisonLayout from '../layouts/ComparisonLayout.astro';
+import RoundupLayout from '../layouts/RoundupLayout.astro';
+import ProductLayout from '../layouts/ProductLayout.astro';
+import CategoryLayout from '../layouts/CategoryLayout.astro';
+
+export interface PageManifest {
+  type: 'comparison' | 'roundup' | 'product' | 'category';
+  slug: string;
+  title: string;
+  description: string;
+  category: string;
+  subcategory?: string;
+  breadcrumbs: Breadcrumb[];
+  products: ProductData[];
+  winner?: string;
+  winnerReason?: string;
+  faqs?: { question: string; answer: string }[];
+  intro?: string;
+  howWeChose?: string;
+  relatedProducts?: ProductData[];
+  subcategoryLinks?: { name: string; slug: string; description: string }[];
+}
+
+export async function getStaticPaths() {
+  const paths: { params: { slug: string }; props: { manifest: PageManifest } }[] = [];
+
+  for (const cat of config.categories) {
+    const catSlug = cat.slug;
+    try {
+      const manifestData = await import(`../../data/manifests/${catSlug}.json`);
+      const manifests = (manifestData.default || manifestData) as PageManifest[];
+
+      for (const m of manifests) {
+        const slugParts = m.slug.replace(/^\//, '').replace(/\/$/, '');
+        paths.push({
+          params: { slug: slugParts },
+          props: { manifest: m },
+        });
+      }
+    } catch {
+      // No manifest for this category yet — skip
+    }
+  }
+
+  return paths;
+}
+
+const { manifest } = Astro.props;
+---
+
+{manifest.type === 'comparison' && (
+  <ComparisonLayout
+    title={manifest.title}
+    description={manifest.description}
+    products={manifest.products}
+    category={manifest.category}
+    subcategory={manifest.subcategory}
+    breadcrumbs={manifest.breadcrumbs}
+    winner={manifest.winner}
+    winnerReason={manifest.winnerReason}
+  />
+)}
+
+{manifest.type === 'roundup' && (
+  <RoundupLayout
+    title={manifest.title}
+    description={manifest.description}
+    products={manifest.products}
+    category={manifest.category}
+    subcategory={manifest.subcategory}
+    breadcrumbs={manifest.breadcrumbs}
+    faqs={manifest.faqs}
+    intro={manifest.intro}
+    howWeChose={manifest.howWeChose}
+  />
+)}
+
+{manifest.type === 'product' && (
+  <ProductLayout
+    title={manifest.title}
+    description={manifest.description}
+    products={manifest.products}
+    category={manifest.category}
+    subcategory={manifest.subcategory}
+    breadcrumbs={manifest.breadcrumbs}
+    relatedProducts={manifest.relatedProducts}
+  />
+)}
+
+{manifest.type === 'category' && (
+  <CategoryLayout
+    title={manifest.title}
+    description={manifest.description}
+    products={manifest.products}
+    category={manifest.category}
+    subcategory={manifest.subcategory}
+    breadcrumbs={manifest.breadcrumbs}
+    subcategoryLinks={manifest.subcategoryLinks}
+  />
+)}

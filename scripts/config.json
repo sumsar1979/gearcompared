@@ -1,0 +1,13 @@
+{
+  "_comment": "Product ASIN configuration for GearCompared. Add ASINs to track per category.",
+  "standing-desks": {
+    "asins": []
+  },
+  "kitchen-appliances": {
+    "blenders": [],
+    "air-fryers": [],
+    "coffee-makers": [],
+    "stand-mixers": [],
+    "toasters": []
+  }
+}

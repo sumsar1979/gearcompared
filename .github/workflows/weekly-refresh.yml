@@ -1,0 +1,39 @@
+name: Weekly Product Data Refresh
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'  # Every Monday at 6 AM UTC
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Fetch latest product data
+        run: python scripts/fetch-products.py --mock
+        # Switch to real fetch when PAAPI is configured
+
+      - name: Generate updated page manifests
+        run: python scripts/generate-pages.py
+
+      - name: Health check
+        run: python scripts/health-check.py
+
+      - name: Commit and push if changed
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: weekly product data refresh'
+          commit_user_name: 'gearcompared-bot'
+          commit_user_email: 'bot@gearcompared.com'
+          file_pattern: 'data/**/*.json'

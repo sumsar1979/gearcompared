@@ -1,0 +1,79 @@
+---
+// Home page: index.astro
+import { config } from '../lib/config';
+import '../styles/global.css';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{config.siteName} — {config.tagline}</title>
+  <meta name="description" content={config.tagline} />
+  <meta property="og:title" content={config.siteName} />
+  <meta property="og:description" content={config.tagline} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={Astro.url.href} />
+  <meta property="og:site_name" content={config.siteName} />
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: config.siteName,
+    url: Astro.url.href,
+    description: config.tagline,
+  })}>
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="site-logo">Gear<span>Compared</span></a>
+      <nav class="site-nav" aria-label="Main navigation">
+        {config.categories.map((cat) => (
+          <a href={`/${cat.slug}/`}>{cat.name}</a>
+        ))}
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-hero" style="padding: var(--space-16) 0;">
+      <div class="container container--content">
+        <h1>{config.siteName}</h1>
+        <p>{config.tagline}</p>
+      </div>
+    </div>
+
+    <div class="container" style="padding: var(--space-8) 0 var(--space-16);">
+      <div class="product-grid" style="grid-template-columns: 1fr 1fr;">
+        {config.categories.map((cat) => (
+          <a 
+            href={`/${cat.slug}/`}
+            style="padding: var(--space-8); border: 2px solid var(--color-border-light); border-radius: var(--radius-xl); text-decoration: none; transition: box-shadow var(--transition-normal), border-color var(--transition-normal);"
+          >
+            <h2 style="font-size: var(--fs-3xl); margin-bottom: var(--space-3); color: var(--color-text);">{cat.name}</h2>
+            <p style="color: var(--color-text-muted); margin-bottom: var(--space-4); font-size: var(--fs-lg);">{cat.description}</p>
+            <ul style="display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); list-style: none; padding: 0;">
+              {cat.subcategories.map((sc) => (
+                <li style="font-size: var(--fs-sm); padding: var(--space-1) var(--space-3); background: var(--color-primary-light); color: var(--color-primary); border-radius: var(--radius-xl); font-weight: var(--fw-medium);">{sc}</li>
+              ))}
+            </ul>
+          </a>
+        ))}
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; {new Date().getFullYear()} {config.siteName}. All rights reserved.</p>
+      <div class="site-footer__links">
+        <a href="/about/">About</a>
+        <a href="/privacy/">Privacy Policy</a>
+        <a href="/disclosure/">Affiliate Disclosure</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
