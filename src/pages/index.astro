@@ -1,78 +1,26 @@
 ---
 import RoundupLayout from '../layouts/RoundupLayout.astro';
-import { config } from '../lib/config';
+import desksData from '../../data/manifests/standing-desks.json';
+
+const roundup = desksData.find((m) => m.type === 'roundup');
+const { title, description, intro, howWeChose, faqs, winner, winnerLabel, winnerReason, products } = roundup;
+
+// Top 5 by rating × reviewCount
+const topProducts = [...products]
+  .sort((a, b) => (b.rating * b.reviewCount) - (a.rating * a.reviewCount))
+  .slice(0, 5);
 ---
 
 <RoundupLayout
-  title="The Best Standing Desks"
-  description="We compared height range, stability, motor quality, and thousands of owner reviews to find the standing desks that are actually worth it. Most of them aren't."
-  category="Standing Desks"
+  title={title}
+  description={description}
+  category="standing-desks"
   breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Standing Desks' }]}
-  products={[
-    {
-      name: 'FlexiSpot E7',
-      brand: 'FlexiSpot',
-      price: 299,
-      rating: '4.6',
-      reviewCount: 3200,
-      asin: 'B0000TEST001',
-      label: 'Best for most people',
-      specs: { 'Height': '22.8–48.4″', 'Capacity': '355 lbs', 'Motor': 'Dual', 'Warranty': '15 years' },
-      body: 'The E7 does almost everything desks twice its price do — dual motors, 355-pound capacity, 15-year warranty, programmable memory — for under $300. Unless you\'re over 6′2″ or need more than 48″ of height, this is the one.',
-      link: '#',
-    },
-    {
-      name: 'Uplift V2',
-      brand: 'Uplift Desk',
-      price: 599,
-      rating: '4.8',
-      reviewCount: 8100,
-      asin: 'B0000TEST002',
-      label: 'Best customization',
-      specs: { 'Height': '25.3–51.1″', 'Capacity': '355 lbs', 'Motor': 'Dual', 'Warranty': '15 years' },
-      body: 'The gold standard for a reason. Goes higher than the E7 (51.1″), runs quieter (45 dB), and offers 12 desktop finishes. If you\'re tall, noise-sensitive, or want every option, the extra $300 is worth it.',
-      link: '#',
-    },
-    {
-      name: 'DeskHaus Apex Pro',
-      brand: 'DeskHaus',
-      price: 927,
-      rating: '4.9',
-      reviewCount: 900,
-      asin: 'B0000TEST003',
-      label: 'Built like a tank',
-      specs: { 'Height': '22–50″', 'Capacity': '600 lbs', 'Motor': 'Dual', 'Warranty': '20 years' },
-      body: '600-pound capacity, 20-year warranty, dead silent at 42 dB. Overkill for a laptop — perfect for a heavy custom wood top or serious multi-monitor setup.',
-      link: '#',
-    },
-    {
-      name: 'Fully Jarvis',
-      brand: 'Fully (Herman Miller)',
-      price: 549,
-      rating: '4.7',
-      reviewCount: 5400,
-      asin: 'B0000TEST004',
-      label: 'Also great',
-      specs: { 'Height': '24.5–50″', 'Capacity': '350 lbs', 'Motor': 'Dual', 'Warranty': '15 years' },
-      body: 'The Uplift V2\'s longtime rival — now backed by Herman Miller. Slightly smaller height range, fewer finishes, but still an excellent desk. A strong alternative if you find it under $450.',
-      link: '#',
-    },
-  ]}
-  guideSections={[
-    { title: 'Height range', body: 'Measure from the floor to your elbow while sitting, and again while standing. Most desks cover 22″ to 50″, fitting people from about 5′0″ to 6′4″. If you\'re shorter, you need a desk that goes below 24″. If you\'re taller, you need above 50″.' },
-    { title: 'Weight capacity', body: 'A single monitor, laptop, and keyboard is about 30 pounds. Dual monitors, a desktop PC, and arm-mounted screens can exceed 100 pounds. Most dual-motor desks handle 350+ pounds without issue.' },
-    { title: 'Motor count and noise', body: 'Single-motor desks are slower, louder, and wobblier. Dual-motor is the standard — quiet enough for an open office. If your desk shares a room, noise matters more than you think.' },
-    { title: 'Stability at standing height', body: 'Two-leg desks always have some movement at max height. Four-leg desks are far more stable but cost more. If you type hard or do precision work, stability matters.' },
-  ]}
-  faq={[
-    { question: 'Are standing desks actually healthier?', answer: 'Alternating between sitting and standing reduces back pain — studies show about 30% less lower back pain after a month of use. The benefit is from not being stuck in one position. Alternate every 45–60 minutes.' },
-    { question: 'What\'s the difference between a $300 and $900 desk?', answer: 'At $300, the FlexiSpot E7 gives you dual motors, 355-pound capacity, and a 15-year warranty. At $900, the DeskHaus gives you four legs (zero wobble), 600-pound capacity, and a 20-year warranty. Most people don\'t need the premium.' },
-    { question: 'Should I buy a frame and add my own top?', answer: 'Yes, if you have the time. A solid wood butcher block ($100–200) plus a good frame ($300–500) gets you a desk that looks and feels better than most pre-built options.' },
-  ]}
-  relatedPages={[
-    { title: 'Uplift V2 vs FlexiSpot E7', url: '/standing-desks/compare/B0000TEST002-vs-B0000TEST001/' },
-    { title: 'DeskHaus Apex Pro vs Uplift V2', url: '/standing-desks/compare/B0000TEST003-vs-B0000TEST002/' },
-    { title: 'Fully Jarvis vs FlexiSpot E7', url: '/standing-desks/compare/B0000TEST004-vs-B0000TEST001/' },
-    { title: 'Best desks under $400', url: '/standing-desks/best/' },
-  ]}
+  products={topProducts}
+  intro={intro}
+  howWeChose={howWeChose}
+  faqs={faqs}
+  winner={winner}
+  winnerLabel={winnerLabel}
+  winnerReason={winnerReason}
 />
