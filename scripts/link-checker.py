@@ -41,11 +41,11 @@ CONFIRMED_LIVE = {
 # CONFIRMED DEAD (verified via browser, May 18 2026)
 # ============================================================
 CONFIRMED_DEAD = {
-    "B08CK7TBP3",   # KitchenAid KMT4117 Toaster -> Page Not Found
-    "B00005OTWM",   # Cuisinart CPT-122 -> Page Not Found
-    "B07L34K4BH",   # Vitamix E310 -> Page Not Found
-    "B0BCN28P8G",   # Ninja DUO Blender -> Page Not Found
-    "B0DHS5X6WD",   # Fully Jarvis -> Zombie (redirects to different product)
+    # All non-browser-verified ASINs replaced with search URLs on 2026-05-18.
+    # Any ASIN NOT in CONFIRMED_LIVE that still has a /dp/ link = dead.
+    # Browser-verified dead list (for reference):
+    # B08CK7TBP3, B00005OTWM, B07L34K4BH, B0BCN28P8G, 
+    # B0DHS5X6WD, B005Z2F9T0, B0B41YH9B6, B0G2KZDXDQ, B0FKH3GMZL
 }
 
 # ============================================================
@@ -104,7 +104,14 @@ def check_asin_ddg(asin):
 
 
 def process_products():
-    """Main logic: check ASINs, replace dead ones, save files."""
+    """Main logic: check ASINs, replace dead ones, save files.
+    
+    Strategy (post 2026-05-18 cleanup):
+    - CONFIRMED_LIVE ASINs with /dp/ links: keep (verified via browser)
+    - Everything else: must use search URLs
+    - Any remaining /dp/ link for non-CONFIRMED_LIVE ASIN = replace with search URL
+    - Search URLs are always live, no DDG check needed
+    """
     products = []
     for cat in ['standing-desks', 'kitchen-appliances']:
         with open(ROOT / f'data/products/{cat}.json') as f:
@@ -117,26 +124,19 @@ def process_products():
         asin = p['asin']
         title = p['title']
         current_url = p.get('affiliateUrl', '')
-        current_type = 'dp' if '/dp/' in current_url else 'search'
+        is_dp = '/dp/' in current_url
         
-        # Determine status
-        if asin in CONFIRMED_LIVE:
+        if asin in CONFIRMED_LIVE and is_dp:
             status = "OK_LIVE"
             action = "keep"
-        elif asin in CONFIRMED_DEAD:
-            status = "DEAD_CONFIRMED"
+        elif is_dp:
+            # /dp/ link for non-verified ASIN = unsafe, convert to search URL
+            status = "UNVERIFIED_DP"
             action = "replace"
         else:
-            ddg = check_asin_ddg(asin)
-            if ddg == "INDEXED":
-                status = "DDG_INDEXED"
-                action = "keep"
-            elif ddg.startswith("ERROR"):
-                status = "DDG_ERROR"
-                action = "keep"  # Don't break links just because DDG is down
-            else:
-                status = f"DDG_{ddg}"
-                action = "keep"  # Conservative: don't replace unverified links
+            # Already a search URL = safe
+            status = "SEARCH_URL"
+            action = "keep"
         
         # Apply replace if needed
         new_url = current_url
