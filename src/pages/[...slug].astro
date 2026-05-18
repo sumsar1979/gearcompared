@@ -66,6 +66,7 @@ const { manifest } = Astro.props;
     winner={manifest.winner}
     winnerReason={manifest.winnerReason}
     pageUrl={`${Astro.site}${manifest.slug}`}
+    relatedGuides={manifest.relatedGuides || []}
   />
 )}
 
@@ -81,6 +82,7 @@ const { manifest } = Astro.props;
     intro={manifest.intro}
     howWeChose={manifest.howWeChose}
     pageUrl={`${Astro.site}${manifest.slug}`}
+    relatedGuides={manifest.relatedGuides || []}
   />
 )}
 
@@ -93,6 +95,7 @@ const { manifest } = Astro.props;
     subcategory={manifest.subcategory}
     breadcrumbs={manifest.breadcrumbs}
     relatedProducts={manifest.relatedProducts}
+    relatedGuides={manifest.relatedGuides || []}
     body={manifest.body}
   />
 )}
@@ -106,5 +109,6 @@ const { manifest } = Astro.props;
     subcategory={manifest.subcategory}
     breadcrumbs={manifest.breadcrumbs}
     subcategoryLinks={manifest.subcategoryLinks}
+    relatedGuides={manifest.relatedGuides || []}
   />
 )}

@@ -16,6 +16,7 @@ const {
   winnerLabel,
   winnerReason,
   pageUrl,
+  relatedGuides = [],
 } = Astro.props;
 
 // Schema
@@ -132,6 +133,18 @@ const schema = schemaComponents.length === 1 ? schemaComponents[0] : mergeLD(...
               <p>{item.answer}</p>
             </details>
           ))}
+        </section>
+      )}
+      {relatedGuides.length > 0 && (
+        <section class="related">
+          <h2>Further reading</h2>
+          <div class="related-list">
+            {relatedGuides.map((g) => (
+              <a href={`/${g.slug}/`}>
+                {g.title} &rarr;
+              </a>
+            ))}
+          </div>
         </section>
       )}
     </article>

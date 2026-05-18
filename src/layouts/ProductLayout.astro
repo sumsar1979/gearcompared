@@ -11,6 +11,7 @@ const {
   breadcrumbs = [],
   body,
   relatedProducts = [],
+  relatedGuides = [],
 } = Astro.props;
 
 const product = products[0] || {};
@@ -111,6 +112,18 @@ const schema = schemaComponents.length === 1 ? schemaComponents[0] : mergeLD(...
             {relatedProducts.map((p) => (
               <a href={p.affiliateUrl} rel="nofollow sponsored" target="_blank">
                 {p.title} ({p.rating} &starf;) &rarr;
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+      {relatedGuides && relatedGuides.length > 0 && (
+        <section class="related">
+          <h2>Further reading</h2>
+          <div class="related-list">
+            {relatedGuides.map((g) => (
+              <a href={`/${g.slug}/`}>
+                {g.title} &rarr;
               </a>
             ))}
           </div>

@@ -12,6 +12,7 @@ const {
   winner,
   winnerReason,
   pageUrl,
+  relatedGuides = [],
 } = Astro.props;
 
 const winnerProduct = products.find(p => p.asin === winner);
@@ -128,6 +129,18 @@ const schema = breadcrumbLD ? mergeLD(breadcrumbLD, comparisonLD) : comparisonLD
           ))}
         </div>
       </section>
+      {relatedGuides.length > 0 && (
+        <section class="related">
+          <h2>Further reading</h2>
+          <div class="related-list">
+            {relatedGuides.map((g) => (
+              <a href={`/${g.slug}/`}>
+                {g.title} &rarr;
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
     </article>
   </main>
 </BaseLayout>

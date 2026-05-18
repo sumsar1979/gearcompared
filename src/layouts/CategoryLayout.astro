@@ -10,6 +10,7 @@ const {
   products = [],
   breadcrumbs = [],
   subcategoryLinks = [],
+  relatedGuides = [],
 } = Astro.props;
 
 const schema = breadcrumbs.length ? generateBreadcrumbLD(breadcrumbs) : undefined;
@@ -81,5 +82,17 @@ const pageUrl = `https://gearcompared.com/${category ? category + '/' : ''}`;
         </a>
       )}
     </div>
+    {relatedGuides.length > 0 && (
+      <section class="related">
+        <h2>Further reading</h2>
+        <div class="related-list">
+          {relatedGuides.map((g) => (
+            <a href={`/${g.slug}/`}>
+              {g.title} &rarr;
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
   </main>
 </BaseLayout>
