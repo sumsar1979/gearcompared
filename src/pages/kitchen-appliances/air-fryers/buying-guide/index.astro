@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { generateBreadcrumbLD } from '../../../../lib/structured-data';
+
+const title = "Air Fryer Buying Guide: How to Choose the Best Air Fryer";
+const description = "Air fryer shopping guide covering capacity, basket vs. oven styles, wattage, dual-zone cooking, and the Ninja vs. Cosori decision for your kitchen.";
+const breadcrumbs = [
+  { name: 'GearCompared', url: '/' },
+  { name: 'Kitchen Appliances', url: '/kitchen-appliances/' },
+  { name: 'Air Fryers', url: '/kitchen-appliances/air-fryers/' },
+  { name: 'Buying Guide', url: '' },
+];
+const schema = generateBreadcrumbLD(breadcrumbs);
+---
+
+<BaseLayout title={title} description={description} schema={schema} canonical="/kitchen-appliances/air-fryers/buying-guide/">
+  <main class="content">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">GearCompared</a><span class="sep">/</span>
+      <a href="/kitchen-appliances/">Kitchen Appliances</a><span class="sep">/</span>
+      <a href="/kitchen-appliances/air-fryers/">Air Fryers</a><span class="sep">/</span>
+      Buying Guide
+    </nav>
+
+    <article>
+      <header class="article-header">
+        <h1>Air Fryer Buying Guide</h1>
+        <p class="article-subtitle">How to choose the right air fryer — capacity, basket style, wattage, and the features that actually matter</p>
+        <div class="review-byline">By the GearCompared Editorial Team &middot; Updated May 2026</div>
+      </header>
+
+      <div class="disclosure-inline">
+        As an Amazon Associate we earn from qualifying purchases. <a href="/disclosure/">Full disclosure</a>.
+      </div>
+
+      <section class="guide-section">
+        <h2>What is an air fryer, really?</h2>
+        <p>An air fryer is a compact convection oven. A heating element sits above the food, and a powerful fan circulates hot air at high speed. The result: crispy, browned food with a fraction of the oil of deep frying. It's not frying — it's supercharged convection baking — but for most foods, the results are close enough that the name stuck.</p>
+      </section>
+
+      <section class="guide-section">
+        <h2>Basket vs. oven-style</h2>
+
+        <h3>Basket-style (recommended for most)</h3>
+        <p>The classic air fryer. A pull-out drawer with a perforated basket. Food sits in a single layer, air circulates all around. <strong>Best crisp, fastest cook times, easiest to use.</strong> Most of our recommended models are basket-style.</p>
+
+        <h3>Oven-style (toaster oven with air fry mode)</h3>
+        <p>Larger, holds more food, often has multiple rack positions. Good if you want one appliance to replace a toaster oven AND air fryer. <strong>Trade-off:</strong> slower preheat, less intense crisping, larger footprint.</p>
+      </section>
+
+      <section class="guide-section">
+        <h2>Capacity — the most important spec for families</h2>
+        <ul>
+          <li><strong>2-3 qt:</strong> Solo cooking. Fits a single chicken breast or small side of fries.</li>
+          <li><strong>4-5 qt:</strong> The sweet spot for 1-2 people. Fits 2 chicken breasts or a pound of fries.</li>
+          <li><strong>5.5-6 qt:</strong> Standard for 3-4 person families. Handles a whole bag of frozen fries or 4 chicken thighs.</li>
+          <li><strong>8-10 qt (dual-zone):</strong> Two independent baskets. Cook two foods at different temps/times simultaneously. The Ninja DZ201 is the category leader.</li>
+        </ul>
+        <p><strong>Don't overfill.</strong> Air fryers work by moving air around food. Cramming the basket kills the crisping effect. If you regularly cook for 4+, get two smaller units or a dual-zone model.</p>
+      </section>
+
+      <section class="guide-section">
+        <h2>Features worth paying for</h2>
+        <ul>
+          <li><strong>Dual-zone cooking</strong> (Ninja DZ201): Game-changer for families. Chicken in one basket at 400°, fries in the other at 380° — both finish at the same time with Sync Finish.</li>
+          <li><strong>Temperature range</strong>: Minimum 400°F max is standard. 450°F is better for quick searing.</li>
+          <li><strong>Preheat time</strong>: Not all models need preheating. Instant Pot Vortex and Ninja models are particularly quick.</li>
+          <li><strong>Dishwasher-safe parts</strong>: Most baskets and crisper plates are dishwasher-safe, but check — some coatings degrade in the dishwasher over time.</li>
+          <li><strong>Dehydrate mode</strong>: Nice bonus if you make jerky or dried fruit, but not essential.</li>
+        </ul>
+      </section>
+
+      <section class="guide-section">
+        <h2>Our top picks</h2>
+        <div class="winner-box" style="text-align:left">
+          <h3 style="margin-top:0">Best Overall: <a href="/kitchen-appliances/ninja/ninja-dz201-foodi-dualzone-xl-air-fryer-b0cbsb2l7k/">Ninja DZ201 Foodi DualZone</a></h3>
+          <div class="winner-box__price">$159</div>
+          <p class="winner-box__reason">Two independent 5 qt baskets, Sync Finish, Match Cook, and the best dual-zone implementation on the market. For families, there's nothing better at this price.</p>
+        </div>
+        <div class="winner-box" style="text-align:left; border-color: #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #fafafa 100%);">
+          <div style="position:absolute; top:-12px; left:24px; background:#d97706; color:white; font-size:0.7rem; font-weight:700; letter-spacing:0.08em; padding:4px 14px; border-radius:20px;">BEST FOR BEGINNERS</div>
+          <h3 style="margin-top:8px">Best for Beginners: <a href="/kitchen-appliances/cosori/cosori-pro-gen-2-air-fryer-5-8qt-b0bd4byr11/">Cosori Pro Gen 2</a></h3>
+          <div class="winner-box__price">$100</div>
+          <p class="winner-box__reason">5.8 qt, 9 one-touch presets, Wi-Fi with app support, and the largest recipe community of any air fryer brand. Perfect first air fryer.</p>
+        </div>
+      </section>
+
+      <section class="guide-section">
+        <h2>Air fryer tips for best results</h2>
+        <ol>
+          <li><strong>Don't use aerosol cooking spray</strong> — the propellants can damage non-stick coatings. Use an oil mister or brush.</li>
+          <li><strong>Shake the basket halfway</strong> — for fries, wings, and vegetables, a mid-cook shake ensures even browning.</li>
+          <li><strong>Pat food dry</strong> — moisture is the enemy of crisp. Pat chicken, vegetables, and especially potatoes dry before seasoning.</li>
+          <li><strong>Reheat leftovers in it</strong> — pizza, fries, and fried foods reheat better in an air fryer than a microwave. 350°F for 3-4 minutes and they're better than fresh delivery.</li>
+        </ol>
+      </section>
+
+      <section class="related">
+        <h2>Further reading</h2>
+        <div class="related-list">
+          <a href="/kitchen-appliances/air-fryers/best/">Best Air Fryers 2026 &rarr;</a>
+          <a href="/kitchen-appliances/air-fryers/compare/">Air Fryer Comparison &rarr;</a>
+          <a href="/kitchen-appliances/blenders/buying-guide/">Blender Buying Guide &rarr;</a>
+          <a href="/methodology/">How We Test and Review &rarr;</a>
+        </div>
+      </section>
+    </article>
+  </main>
+</BaseLayout>

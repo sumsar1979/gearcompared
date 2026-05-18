@@ -1,0 +1,168 @@
+---
+// standing-desks/buying-guide/index.astro
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { generateBreadcrumbLD } from '../../../lib/structured-data';
+
+const title = "Standing Desk Buying Guide: How to Choose the Best Standing Desk";
+const description = "Everything you need to know before buying a standing desk — types, motors, height ranges, weight capacities, stability, and ergonomic tips for your home office.";
+const breadcrumbs = [
+  { name: 'GearCompared', url: '/' },
+  { name: 'Standing Desks', url: '/standing-desks/' },
+  { name: 'Buying Guide', url: '' },
+];
+const schema = generateBreadcrumbLD(breadcrumbs);
+---
+
+<BaseLayout title={title} description={description} schema={schema} canonical="/standing-desks/buying-guide/">
+  <main class="content">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">GearCompared</a><span class="sep">/</span>
+      <a href="/standing-desks/">Standing Desks</a><span class="sep">/</span>
+      Buying Guide
+    </nav>
+
+    <article>
+      <header class="article-header">
+        <h1>Standing Desk Buying Guide</h1>
+        <p class="article-subtitle">How to choose the best standing desk for your home office, your body, and your budget</p>
+        <div class="review-byline">By the GearCompared Editorial Team &middot; Updated May 2026</div>
+      </header>
+
+      <div class="disclosure-inline">
+        As an Amazon Associate we earn from qualifying purchases. <a href="/disclosure/">Full disclosure</a>.
+      </div>
+
+      <section class="guide-section">
+        <h2>Why get a standing desk?</h2>
+        <p>If you sit more than six hours a day, a standing desk is one of the highest-ROI ergonomic upgrades you can make. Research links prolonged sitting with increased risk of back pain, cardiovascular issues, and metabolic problems. A standing desk lets you alternate between sitting and standing throughout the day — and that variation is what really matters.</p>
+        <ul>
+          <li><strong>Reduces back and neck pain</strong> — Multiple studies show standing desk users report 30-50% less upper back and neck pain within weeks of switching.</li>
+          <li><strong>Boosts energy and mood</strong> — Standing increases blood flow and can help combat the 2pm energy crash.</li>
+          <li><strong>Increases calorie burn</strong> — Standing burns roughly 50-80 more calories per hour than sitting. Over a year, that adds up.</li>
+        </ul>
+      </section>
+
+      <section class="guide-section">
+        <h2>Electric vs. manual vs. converter — pick your type</h2>
+
+        <h3>Electric standing desks (recommended)</h3>
+        <p>Motorized height adjustment at the press of a button. Most have programmable memory presets, so you can save your sitting and standing heights. Dual-motor models are quieter, faster, and more stable. <strong>This is what 90% of buyers should get.</strong></p>
+        <ul>
+          <li><strong>Pros:</strong> Fast transitions, memory presets, wide height range, best stability.</li>
+          <li><strong>Cons:</strong> Higher cost ($200-$800+), requires a power outlet.</li>
+          <li><strong>Best for:</strong> Daily users who want the smoothest experience.</li>
+        </ul>
+
+        <h3>Manual standing desks (crank/pneumatic)</h3>
+        <p>Hand-cranked or gas-spring lift. No motor means lower cost and fewer things to break. But adjusting height takes 15-30 seconds of cranking, which may discourage frequent transitions.</p>
+        <ul>
+          <li><strong>Pros:</strong> Lower cost, no electricity needed, simpler mechanics.</li>
+          <li><strong>Cons:</strong> Slower transitions, no memory presets, harder to adjust under load.</li>
+          <li><strong>Best for:</strong> Budget buyers, occasional standers.</li>
+        </ul>
+
+        <h3>Standing desk converters (desk risers)</h3>
+        <p>Sit on top of your existing desk and raise/lower your keyboard + monitor. Cheapest way to try standing, but they reduce desktop real estate and don't look as clean.</p>
+        <ul>
+          <li><strong>Pros:</strong> Lowest cost ($100-$300), keep your current desk, easy to try.</li>
+          <li><strong>Cons:</strong> Reduced workspace, less stable, takes up desk depth.</li>
+          <li><strong>Best for:</strong> Renters, people testing the waters, tight budgets.</li>
+        </ul>
+      </section>
+
+      <section class="guide-section">
+        <h2>Key specs to compare</h2>
+
+        <h3>Height range</h3>
+        <p>Most desks go from 28-29" (seated minimum) to 46-48" (standing max). If you're tall (6'2"+), look for a max height of 50"+. If you're shorter (under 5'4"), make sure the minimum goes below 27". The <a href="/standing-desks/compare/">comparison page</a> has exact numbers for every desk we've reviewed.</p>
+
+        <h3>Weight capacity</h3>
+        <p>This is how much the desk can lift (including the desktop itself). Typical ranges:</p>
+        <ul>
+          <li><strong>Entry-level:</strong> 150-250 lbs — fine for a laptop, single monitor, and keyboard.</li>
+          <li><strong>Mid-range:</strong> 250-350 lbs — handles dual monitors, PC tower, and accessories.</li>
+          <li><strong>Heavy-duty:</strong> 350+ lbs — for ultrawide monitor setups, heavy desktops, or commercial use.</li>
+        </ul>
+
+        <h3>Motor type</h3>
+        <p><strong>Dual-motor</strong> desks have one motor per leg, providing faster lifts, quieter operation, and better stability under load. <strong>Single-motor</strong> uses a connecting rod — fine for lighter setups but can struggle with heavy desktops. For most buyers, dual-motor is worth the $50-100 premium.</p>
+
+        <h3>Desktop size</h3>
+        <p>Standard sizes: 48x24" (compact), 55x28" (mid-size), 60x30" (spacious), 72x30"+ (large). If you use dual monitors, 55" width minimum. Budget desks often come with thinner particle-board tops (0.75"); premium options offer solid wood or bamboo.</p>
+
+        <h3>Stability at height</h3>
+        <p>All desks wobble somewhat at full standing height. Crossbars between the legs dramatically improve stability. Desks with wider feet and thicker leg columns are more stable. If you're 6'+ and type heavily, stability matters more.</p>
+      </section>
+
+      <section class="guide-section">
+        <h2>Our top picks at a glance</h2>
+
+        <div class="winner-box" style="text-align:left">
+          <h3 style="margin-top:0">Best Overall: <a href="/standing-desks/uplift-desk/uplift-v2-standing-desk-standard-b07szhwch5/">Uplift V2</a></h3>
+          <div class="winner-box__price">From $599</div>
+          <p class="winner-box__reason">Dual-motor, 355 lb capacity, widest customizability (20+ desktop options), 15-year warranty. The V2 is the desk most comparison sites agree on, and we do too.</p>
+        </div>
+
+        <div class="winner-box" style="text-align:left; border-color: #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #fafafa 100%);">
+          <div style="position:absolute; top:-12px; left:24px; background:#d97706; color:white; font-size:0.7rem; font-weight:700; letter-spacing:0.08em; padding:4px 14px; border-radius:20px;">BEST VALUE</div>
+          <h3 style="margin-top:8px">Best Value: <a href="/standing-desks/flexispot/flexispot-e7-pro-electric-standing-desk-b0b422bbht/">FlexiSpot E7 Pro</a></h3>
+          <div class="winner-box__price">From $399</div>
+          <p class="winner-box__reason">Dual-motor, 355 lb capacity at a mid-tier price. The E7 Pro delivers 90% of the Uplift experience for 30-40% less money.</p>
+        </div>
+
+        <div class="winner-box" style="text-align:left; border-color: #8b5cf6; background: linear-gradient(135deg, #f5f3ff 0%, #fafafa 100%);">
+          <div style="position:absolute; top:-12px; left:24px; background:#7c3aed; color:white; font-size:0.7rem; font-weight:700; letter-spacing:0.08em; padding:4px 14px; border-radius:20px;">BUDGET PICK</div>
+          <h3 style="margin-top:8px">Best Budget: <a href="/standing-desks/shw/shw-electric-height-adjustable-standing-desk-b0fkh3gmzl/">SHW Electric</a></h3>
+          <div class="winner-box__price">From $149</div>
+          <p class="winner-box__reason">If you want to try a standing desk without committing $400+, the SHW is the lowest-priced electric desk that's actually usable. Perfect for students or first-timers.</p>
+        </div>
+      </section>
+
+      <section class="guide-section">
+        <h2>Accessories worth adding</h2>
+        <ul>
+          <li><strong>Anti-fatigue mat</strong> — The #1 accessory for comfort while standing. Reduces joint stress and encourages subtle movement.</li>
+          <li><strong>Cable management tray</strong> — Keeps the underside clean. Most brands offer matching trays, or generic ones work fine.</li>
+          <li><strong>Monitor arm</strong> — Frees desktop space and lets you position the screen at proper ergonomic height.</li>
+          <li><strong>CPU holder</strong> — Mounts your PC tower under the desk so it raises/lowers with the desk.</li>
+        </ul>
+      </section>
+
+      <section class="guide-section">
+        <h2>Setup tips for comfort</h2>
+        <ol>
+          <li><strong>Screen at eye level</strong> — Top of monitor should be at or slightly below eye level. Your eyes should look slightly downward, not up.</li>
+          <li><strong>Elbows at 90°</strong> — Desk height should let your forearms rest parallel to the floor. Adjust standing height until your wrists are straight.</li>
+          <li><strong>Stand 15-20 minutes per hour</strong> — Don't go from 0 to 8 hours. Start with 15-minute standing sessions and work up. The goal is variety, not marathon standing.</li>
+          <li><strong>Shift your weight</strong> — Locking your knees while standing is as bad as slouching while sitting. Keep a slight bend and shift weight between legs.</li>
+        </ol>
+      </section>
+
+      <section class="guide-section">
+        <h2>Read our full reviews</h2>
+        <div class="related-list">
+          <a href="/standing-desks/vari/vari-comfortedge-electric-standing-desk-b0ct95j8xh/">Vari ComfortEdge Review &rarr;</a>
+          <a href="/standing-desks/flexispot/flexispot-e7-pro-electric-standing-desk-b0b422bbht/">FlexiSpot E7 Pro Review &rarr;</a>
+          <a href="/standing-desks/uplift-desk/uplift-v2-standing-desk-commercial-b08572g1fg/">Uplift V2 Commercial Review &rarr;</a>
+          <a href="/standing-desks/uplift-desk/uplift-v2-standing-desk-standard-b07szhwch5/">Uplift V2 Standard Review &rarr;</a>
+          <a href="/standing-desks/flexispot/flexispot-e7-plus-standing-desk-b0b41yh9b6/">FlexiSpot E7 Plus Review &rarr;</a>
+          <a href="/standing-desks/fully-herman-miller/fully-jarvis-standing-desk-b0dhs5x6wd/">Fully Jarvis Review &rarr;</a>
+          <a href="/standing-desks/autonomous/autonomous-smartdesk-core-b0g2kzdxdq/">Autonomous SmartDesk Core Review &rarr;</a>
+          <a href="/standing-desks/shw/shw-electric-height-adjustable-standing-desk-b0fkh3gmzl/">SHW Electric Review &rarr;</a>
+          <a href="/standing-desks/flexispot/flexispot-ec1-standing-desk-frame-b0b422zyy1/">FlexiSpot EC1 Review &rarr;</a>
+          <a href="/standing-desks/fezibo/fezibo-height-adjustable-electric-standing-desk-b0c1vnfqs9/">FEZIBO Review &rarr;</a>
+        </div>
+      </section>
+
+      <section class="related">
+        <h2>Further reading</h2>
+        <div class="related-list">
+          <a href="/standing-desks/best-standing-desks/">Best Standing Desks 2026 &rarr;</a>
+          <a href="/standing-desks/compare/">Standing Desk Comparison &rarr;</a>
+          <a href="/kitchen-appliances/blenders/best/">Best Blenders 2026 &rarr;</a>
+          <a href="/methodology/">How We Test and Review &rarr;</a>
+        </div>
+      </section>
+    </article>
+  </main>
+</BaseLayout>
