@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Page Not Found" description="The page you're looking for doesn't exist.">
+  <main class="content" style="text-align:center;padding:4rem 1rem;">
+    <h1>404 — Page Not Found</h1>
+    <p style="font-size:1.1rem;color:var(--text-secondary);margin-bottom:2rem;">
+      The page you're looking for doesn't exist or has been moved.
+    </p>
+    <p>
+      <a href="/" class="btn btn-buy">Go to Homepage &rarr;</a>
+    </p>
+    <p style="margin-top:2rem;font-size:0.9rem;color:var(--text-tertiary);">
+      Or browse: <a href="/standing-desks/">Standing Desks</a> &middot; <a href="/kitchen-appliances/">Kitchen Appliances</a>
+    </p>
+  </main>
+</BaseLayout>

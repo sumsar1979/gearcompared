@@ -3,11 +3,15 @@
 // Props:
 //   title: string
 //   description: string
+//   canonicalURL?: string (override default canonical)
+//   ogImage?: string
+//   schema?: any (JSON-LD schema object or array to inject)
 import { config } from '../lib/config';
 import '../styles/global.css';
 
-const { title, description } = Astro.props;
+const { title, description, canonicalURL, ogImage, schema } = Astro.props;
 const fullTitle = title ? `${title} | ${config.siteName}` : config.siteName;
+const canonical = canonicalURL || Astro.url.href;
 ---
 
 <!DOCTYPE html>
@@ -17,6 +21,7 @@ const fullTitle = title ? `${title} | ${config.siteName}` : config.siteName;
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{fullTitle}</title>
   <meta name="description" content={description || config.tagline} />
+  <link rel="canonical" href={canonical} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
@@ -24,7 +29,28 @@ const fullTitle = title ? `${title} | ${config.siteName}` : config.siteName;
   <meta property="og:title" content={fullTitle} />
   <meta property="og:description" content={description || config.tagline} />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content={Astro.url.href} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:site_name" content={config.siteName} />
+  {ogImage ? (
+    <meta property="og:image" content={ogImage} />
+  ) : (
+    <meta property="og:image" content="https://gearcompared.com/og-default.png" />
+  )}
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={fullTitle} />
+  <meta name="twitter:description" content={description || config.tagline} />
+  {ogImage ? (
+    <meta name="twitter:image" content={ogImage} />
+  ) : (
+    <meta name="twitter:image" content="https://gearcompared.com/og-default.png" />
+  )}
+
+  <!-- JSON-LD Schema -->
+  {schema && (
+    <script type="application/ld+json" set:html={JSON.stringify(schema, null, 2)} />
+  )}
 </head>
 <body>
   <header class="site-header">
@@ -45,6 +71,9 @@ const fullTitle = title ? `${title} | ${config.siteName}` : config.siteName;
   <footer class="site-footer">
     <div class="container">
       <div class="site-footer__links">
+        <a href="/methodology/">How we test</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
         <a href="/privacy/">Privacy</a>
         <a href="/disclosure/">How we make money</a>
         <a href="/terms/">Terms</a>

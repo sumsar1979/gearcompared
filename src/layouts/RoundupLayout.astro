@@ -1,6 +1,7 @@
 ---
 // RoundupLayout — "Best X" editorial roundup pages
 import BaseLayout from './BaseLayout.astro';
+import { generateItemListLD, generateBreadcrumbLD, generateFAQLD, mergeLD } from '../lib/structured-data';
 
 const {
   title,
@@ -14,10 +15,18 @@ const {
   winner,
   winnerLabel,
   winnerReason,
+  pageUrl,
 } = Astro.props;
+
+// Schema
+const breadcrumbLD = breadcrumbs.length ? generateBreadcrumbLD(breadcrumbs) : null;
+const itemListLD = generateItemListLD(products, title, pageUrl);
+const faqLD = faqs.length ? generateFAQLD(faqs) : null;
+const schemaComponents = [breadcrumbLD, itemListLD, faqLD].filter(Boolean);
+const schema = schemaComponents.length === 1 ? schemaComponents[0] : mergeLD(...schemaComponents);
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} schema={schema}>
   <main class="content">
     <nav class="breadcrumbs" aria-label="Breadcrumb">
       {breadcrumbs.map((crumb, i) => (
@@ -36,19 +45,28 @@ const {
       </header>
 
       <p class="disclosure-inline">
-        When you buy through our links, we may earn a commission.
+        We earn commissions from purchases made through links in this post at no extra cost to you.
         <a href="/disclosure/">Here&rsquo;s how we choose</a> &mdash; commissions don&rsquo;t influence our picks.
       </p>
 
       {intro && <section class="intro"><p>{intro}</p></section>}
 
       {winner && winnerLabel && (
-        <div class="verdict-box">
-          <div class="verdict-box__label">{winnerLabel}</div>
-          <div class="verdict-box__answer">
+        <div class="winner-box">
+          <div class="winner-box__badge">{winnerLabel}</div>
+          <div class="winner-box__product">
             {products.find(p => p.asin === winner)?.title || winner}
           </div>
-          {winnerReason && <div class="verdict-box__body">{winnerReason}</div>}
+          {winnerReason && <div class="winner-box__reason">{winnerReason}</div>}
+          {(() => {
+            const wp = products.find(p => p.asin === winner);
+            if (!wp) return null;
+            return (
+              <a href={wp.affiliateUrl} class="btn btn-buy winner-box__cta" rel="nofollow sponsored" target="_blank">
+                Check Price on Amazon &rarr;
+              </a>
+            );
+          })()}
         </div>
       )}
 

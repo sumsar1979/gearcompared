@@ -1,6 +1,7 @@
 ---
 // ComparisonLayout — "Best X: Year Comparison" multi-product comparison pages
 import BaseLayout from './BaseLayout.astro';
+import { generateComparisonLD, generateBreadcrumbLD, mergeLD } from '../lib/structured-data';
 
 const {
   title,
@@ -10,15 +11,21 @@ const {
   breadcrumbs = [],
   winner,
   winnerReason,
+  pageUrl,
 } = Astro.props;
 
 const winnerProduct = products.find(p => p.asin === winner);
 const allSpecs = new Set();
 products.forEach(p => { if (p.specs) Object.keys(p.specs).forEach(k => allSpecs.add(k)); });
 const specKeys = [...allSpecs];
+
+// Schema
+const breadcrumbLD = breadcrumbs.length ? generateBreadcrumbLD(breadcrumbs) : null;
+const comparisonLD = generateComparisonLD(products, title, pageUrl);
+const schema = breadcrumbLD ? mergeLD(breadcrumbLD, comparisonLD) : comparisonLD;
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} schema={schema}>
   <main class="content">
     <nav class="breadcrumbs" aria-label="Breadcrumb">
       {breadcrumbs.map((crumb, i) => (
@@ -37,15 +44,27 @@ const specKeys = [...allSpecs];
       </header>
 
       <p class="disclosure-inline">
-        When you buy through our links, we may earn a commission.
+        We earn commissions from purchases made through links in this post at no extra cost to you.
         <a href="/disclosure/">Here&rsquo;s how we choose</a>.
       </p>
 
+      {/* Winner Box — prominent above fold */}
       {winner && winnerProduct && (
-        <div class="verdict-box">
-          <div class="verdict-box__label">The short answer</div>
-          <div class="verdict-box__answer">{winnerProduct.title}</div>
-          {winnerReason && <div class="verdict-box__body">{winnerReason}</div>}
+        <div class="winner-box">
+          <div class="winner-box__badge">Best Overall</div>
+          <div class="winner-box__product">{winnerProduct.brand} {winnerProduct.title}</div>
+          <div class="winner-box__price">
+            ${winnerProduct.price || '?'}
+            {winnerProduct.listPrice && <span class="list-price">${winnerProduct.listPrice}</span>}
+          </div>
+          <div class="winner-box__rating">
+            {winnerProduct.rating} &starf; — {(winnerProduct.reviewCount || 0).toLocaleString()}+ reviews
+          </div>
+          {winnerReason && <div class="winner-box__reason">{winnerReason}</div>}
+          <a href={winnerProduct.affiliateUrl} class="btn btn-buy winner-box__cta" rel="nofollow sponsored" target="_blank">
+            Check Price on Amazon &rarr;
+          </a>
+          <div class="winner-box__disclosure">As an Amazon Associate we earn from qualifying purchases.</div>
         </div>
       )}
 
@@ -72,7 +91,7 @@ const specKeys = [...allSpecs];
       </section>
 
       <section>
-        <h2>Price comparison</h2>
+        <h2>All products compared</h2>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
           {products.map(p => (
             <div class="product-card">

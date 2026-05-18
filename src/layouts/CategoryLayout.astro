@@ -1,6 +1,7 @@
 ---
 // CategoryLayout — Category hub page
 import BaseLayout from './BaseLayout.astro';
+import { generateBreadcrumbLD } from '../lib/structured-data';
 
 const {
   title,
@@ -10,9 +11,12 @@ const {
   breadcrumbs = [],
   subcategoryLinks = [],
 } = Astro.props;
+
+const schema = breadcrumbs.length ? generateBreadcrumbLD(breadcrumbs) : undefined;
+const pageUrl = `https://gearcompared.com/${category ? category + '/' : ''}`;
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} schema={schema}>
   <main class="content">
     <nav class="breadcrumbs" aria-label="Breadcrumb">
       {breadcrumbs.map((crumb, i) => (

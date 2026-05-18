@@ -1,6 +1,7 @@
 ---
 // ProductLayout — Single product review page
 import BaseLayout from './BaseLayout.astro';
+import { generateProductLD, generateBreadcrumbLD, mergeLD } from '../lib/structured-data';
 
 const {
   title,
@@ -13,9 +14,16 @@ const {
 } = Astro.props;
 
 const product = products[0] || {};
+
+// Generate schema
+const reviewDate = product.lastUpdated || new Date().toISOString();
+const breadcrumbLD = breadcrumbs.length ? generateBreadcrumbLD(breadcrumbs) : null;
+const productLD = product.asin ? generateProductLD(product) : null;
+const schemaComponents = [breadcrumbLD, productLD].filter(Boolean);
+const schema = schemaComponents.length === 1 ? schemaComponents[0] : mergeLD(...schemaComponents);
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} schema={schema}>
   <main class="content">
     <nav class="breadcrumbs" aria-label="Breadcrumb">
       {breadcrumbs.map((crumb, i) => (
@@ -34,7 +42,7 @@ const product = products[0] || {};
       </header>
 
       <p class="disclosure-inline">
-        When you buy through our links, we may earn a commission.
+        We earn commissions from purchases made through links in this post at no extra cost to you.
         <a href="/disclosure/">Here&rsquo;s how we choose</a>.
       </p>
 
@@ -78,7 +86,6 @@ const product = products[0] || {};
 {/* Editorial Review */}
       {body && (() => {
         if (/<[a-z][\s\S]*>/i.test(body)) {
-          // Already has HTML — render as-is
           return (
             <section class="editorial-review">
               <h2 class="review-heading">Our Review</h2>

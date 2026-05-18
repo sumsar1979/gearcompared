@@ -1,0 +1,31 @@
+# GearCompared — LLM-friendly site map
+
+## About
+GearCompared provides expert, hands-on reviews and comparisons of standing desks and kitchen appliances. We earn commissions from qualifying Amazon purchases at no extra cost to you.
+
+## Site Structure
+- Home: https://gearcompared.com/
+- Standing Desks: https://gearcompared.com/standing-desks/
+- Kitchen Appliances: https://gearcompared.com/kitchen-appliances/
+- Disclosure: https://gearcompared.com/disclosure/
+- Privacy: https://gearcompared.com/privacy/
+- Terms: https://gearcompared.com/terms/
+- Methodology: https://gearcompared.com/methodology/
+- About: https://gearcompared.com/about/
+- Contact: https://gearcompared.com/contact/
+
+## Standing Desk Pages
+- Best Standing Desks: https://gearcompared.com/standing-desks/best-standing-desks/
+- Standing Desk Comparison: https://gearcompared.com/standing-desks/compare/
+- Individual reviews: https://gearcompared.com/standing-desks/ (see subdirectory for all products)
+
+## Kitchen Appliance Pages
+- Best Blenders: https://gearcompared.com/kitchen-appliances/blenders/best/
+- Best Air Fryers: https://gearcompared.com/kitchen-appliances/air-fryers/best/
+- Best Coffee Makers: https://gearcompared.com/kitchen-appliances/coffee-makers/best/
+- Best Stand Mixers: https://gearcompared.com/kitchen-appliances/stand-mixers/best/
+- Best Toasters: https://gearcompared.com/kitchen-appliances/toasters/best/
+- Individual reviews: https://gearcompared.com/kitchen-appliances/ (see subdirectories for all products)
+
+## Full Sitemap
+- XML: https://gearcompared.com/sitemap-index.xml
