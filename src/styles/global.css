@@ -301,6 +301,70 @@ h4 { font-size: 1rem; }
   display: inline-block;
 }
 
+/* ─── Product Card Rating ───────────────────────────────── */
+
+.product-card__rating {
+  font-family: var(--font-ui);
+  margin: 12px 0;
+  padding: 12px 0;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.product-card__stars {
+  font-weight: 600;
+  color: #e67e22;
+  font-size: 1rem;
+}
+
+.product-card__review-count {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.product-card__review-link {
+  font-size: 0.8rem;
+  border-bottom: 1px dotted var(--link);
+  display: inline-block;
+  width: fit-content;
+}
+
+.product-card__review-link:hover {
+  border-bottom-style: solid;
+}
+
+.product-card__review-disclaimer {
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  font-style: italic;
+  margin-top: 4px;
+}
+
+/* ─── Editorial Review Section ──────────────────────────── */
+
+.editorial-review {
+  margin: 40px 0;
+}
+
+.review-heading {
+  font-family: var(--font-ui);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 8px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  letter-spacing: -0.02em;
+}
+
+.review-byline {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  margin-bottom: 24px;
+}
+
 /* ─── Comparison Table ──────────────────────────────────── */
 
 .comparison-table {

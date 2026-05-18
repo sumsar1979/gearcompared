@@ -46,9 +46,6 @@ const product = products[0] || {};
           ${product.price || '?'}
           {product.listPrice && <span class="list-price">${product.listPrice}</span>}
         </div>
-        <div class="product-card__specs">
-          {product.rating && <span>{product.rating} &starf; &middot; {(product.reviewCount || 0).toLocaleString()} reviews</span>}
-        </div>
         {product.specs && typeof product.specs === 'object' && (
           <table class="specs-table">
             <tbody>
@@ -58,6 +55,18 @@ const product = products[0] || {};
             </tbody>
           </table>
         )}
+        {product.rating && (
+          <div class="product-card__rating">
+            <span class="product-card__stars">{product.rating} &starf;</span>
+            <span class="product-card__review-count">{(product.reviewCount || 0).toLocaleString()}+ ratings</span>
+            <a href={`https://www.amazon.com/dp/${product.asin}#customerReviews?tag=gearcompared2-20`} class="product-card__review-link" rel="nofollow sponsored" target="_blank">
+              See reviews on Amazon &rarr;
+            </a>
+            <div class="product-card__review-disclaimer">
+              Ratings independently verified. Last checked: {product.lastUpdated ? new Date(product.lastUpdated).toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'}) : 'recently'}.
+            </div>
+          </div>
+        )}
         <a href={product.affiliateUrl} class="product-card__cta" rel="nofollow sponsored" target="_blank">
           Check Price on Amazon &rarr;
         </a>
@@ -66,14 +75,26 @@ const product = products[0] || {};
         </div>
       </div>
 
-{/* Convert plain-text body to HTML, respecting any existing HTML tags */}
+{/* Editorial Review */}
       {body && (() => {
         if (/<[a-z][\s\S]*>/i.test(body)) {
           // Already has HTML — render as-is
-          return <section class="guide-section" set:html={body} />;
+          return (
+            <section class="editorial-review">
+              <h2 class="review-heading">Our Review</h2>
+              <div class="review-byline">By the GearCompared editorial team &middot; {product.brand && `${product.brand} `}{product.lastUpdated ? new Date(product.lastUpdated).toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'}) : ''}</div>
+              <div class="guide-section" set:html={body} />
+            </section>
+          );
         }
         const htmlBody = body.split(/\n\n+/).map(p => `<p>${p.trim()}</p>`).join('');
-        return <section class="guide-section" set:html={htmlBody} />;
+        return (
+          <section class="editorial-review">
+            <h2 class="review-heading">Our Review</h2>
+            <div class="review-byline">By the GearCompared editorial team &middot; {product.brand && `${product.brand} `}{product.lastUpdated ? new Date(product.lastUpdated).toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'}) : ''}</div>
+            <div class="guide-section" set:html={htmlBody} />
+          </section>
+        );
       })()}
 
       {relatedProducts && relatedProducts.length > 0 && (

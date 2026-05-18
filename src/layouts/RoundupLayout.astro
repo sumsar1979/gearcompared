@@ -74,16 +74,26 @@ const {
               {product.price ? `$${product.price}` : 'Price not available'}
               {product.listPrice && <span class="list-price">$${product.listPrice}</span>}
             </div>
-            <div class="product-card__specs">
-              {product.specs && typeof product.specs === 'object' && Object.entries(product.specs).map(([key, value]) => (
-                <span>{value} <span class="sep">&middot;</span></span>
-              ))}
-              <span>{product.rating} &starf; from {(product.reviewCount || 0).toLocaleString()}+ reviews</span>
-            </div>
+            {product.specs && typeof product.specs === 'object' && (
+              <div class="product-card__specs">
+                {Object.entries(product.specs).map(([key, value]) => (
+                  <span>{value} <span class="sep">&middot;</span></span>
+                ))}
+              </div>
+            )}
             {product.features && product.features.length > 0 && (
               <ul class="feature-list">
                 {product.features.map((f) => <li>{f}</li>)}
               </ul>
+            )}
+            {product.rating && (
+              <div class="product-card__rating">
+                <span class="product-card__stars">{product.rating} &starf;</span>
+                <span class="product-card__review-count">{(product.reviewCount || 0).toLocaleString()}+ ratings</span>
+                <a href={`https://www.amazon.com/dp/${product.asin}#customerReviews?tag=gearcompared2-20`} class="product-card__review-link" rel="nofollow sponsored" target="_blank">
+                  See reviews on Amazon &rarr;
+                </a>
+              </div>
             )}
             <a href={product.affiliateUrl} class="product-card__cta" rel="nofollow sponsored" target="_blank">
               Check Price on Amazon &rarr;
