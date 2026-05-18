@@ -130,10 +130,13 @@ def process_products():
             ddg = check_asin_ddg(asin)
             if ddg == "INDEXED":
                 status = "DDG_INDEXED"
-                action = "keep"  # Trust DDG index as signal of life
+                action = "keep"
+            elif ddg.startswith("ERROR"):
+                status = "DDG_ERROR"
+                action = "keep"  # Don't break links just because DDG is down
             else:
                 status = f"DDG_{ddg}"
-                action = "replace"
+                action = "keep"  # Conservative: don't replace unverified links
         
         # Apply replace if needed
         new_url = current_url
