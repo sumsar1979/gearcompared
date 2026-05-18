@@ -155,8 +155,9 @@ def process_products():
             'new_type': 'dp' if '/dp/' in new_url else 'search',
         })
     
-    # Save updated product files
+    # Save updated product files + regenerate manifests
     if changes:
+        print(f"Applying {changes} changes to product files...")
         # Rebuild per-category lists from modified products
         for cat in ['standing-desks', 'kitchen-appliances']:
             with open(ROOT / f'data/products/{cat}.json', 'r', encoding='utf-8') as f:
@@ -171,6 +172,13 @@ def process_products():
             if changed:
                 with open(ROOT / f'data/products/{cat}.json', 'w', encoding='utf-8') as f:
                     json.dump(cat_data, f, indent=2, ensure_ascii=False)
+        # Regenerate page manifests from updated product data
+        import subprocess
+        result = subprocess.run(['python', str(ROOT / 'scripts' / 'generate-manifests.py')],
+                                capture_output=True, text=True, cwd=str(ROOT))
+        print(result.stdout)
+        if result.returncode != 0:
+            print(f"WARNING: Manifest regeneration failed: {result.stderr}")
     
     return results, changes
 

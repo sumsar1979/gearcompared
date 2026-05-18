@@ -91,7 +91,7 @@ const specKeys = [...allSpecs];
                 <div class="product-card__rating">
                   <span class="product-card__stars">{p.rating} &starf;</span>
                   <span class="product-card__review-count">{(p.reviewCount || 0).toLocaleString()}+ ratings</span>
-                  <a href={`https://www.amazon.com/dp/${p.asin}#customerReviews?tag=gearcompared2-20`} class="product-card__review-link" rel="nofollow sponsored" target="_blank">
+                  <a href={(() => { if (p.affiliateUrl && p.affiliateUrl.includes('/dp/')) return `https://www.amazon.com/dp/${p.asin}#customerReviews?tag=gearcompared2-20`; return `https://www.amazon.com/s?k=${encodeURIComponent(p.title)}#customerReviews&tag=gearcompared2-20`; })()} class="product-card__review-link" rel="nofollow sponsored" target="_blank">
                     See reviews on Amazon &rarr;
                   </a>
                 </div>
