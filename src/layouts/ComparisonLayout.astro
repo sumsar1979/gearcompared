@@ -1,6 +1,7 @@
 ---
 // ComparisonLayout — "Best X: Year Comparison" multi-product comparison pages
 import BaseLayout from './BaseLayout.astro';
+import StickyTOC from '../components/StickyTOC.astro';
 import { generateComparisonLD, generateBreadcrumbLD, mergeLD } from '../lib/structured-data';
 
 const {
@@ -20,6 +21,13 @@ const allSpecs = new Set();
 products.forEach(p => { if (p.specs) Object.keys(p.specs).forEach(k => allSpecs.add(k)); });
 const specKeys = [...allSpecs];
 
+// TOC headings
+const tocHeadings = [
+  { id: 'winner', text: 'Best Overall', level: 'h2' },
+  { id: 'specs', text: 'Spec Comparison', level: 'h2' },
+  { id: 'products', text: 'All Products', level: 'h2' },
+];
+
 // Schema
 const breadcrumbLD = breadcrumbs.length ? generateBreadcrumbLD(breadcrumbs) : null;
 const comparisonLD = generateComparisonLD(products, title, pageUrl);
@@ -38,6 +46,7 @@ const schema = breadcrumbLD ? mergeLD(breadcrumbLD, comparisonLD) : comparisonLD
     </nav>
 
     <article>
+      <StickyTOC headings={tocHeadings} />
       <header class="article-header">
         <div class="changelog">{category?.replace(/-/g, ' ') || 'Comparison'} &middot; Updated {new Date().toISOString().split('T')[0]}</div>
         <h1>{title}</h1>
@@ -51,7 +60,7 @@ const schema = breadcrumbLD ? mergeLD(breadcrumbLD, comparisonLD) : comparisonLD
 
       {/* Winner Box — prominent above fold */}
       {winner && winnerProduct && (
-        <div class="winner-box">
+        <div class="winner-box" id="winner">
           <div class="winner-box__badge">Best Overall</div>
           <div class="winner-box__product">{winnerProduct.brand} {winnerProduct.title}</div>
           <div class="winner-box__price">
@@ -69,7 +78,7 @@ const schema = breadcrumbLD ? mergeLD(breadcrumbLD, comparisonLD) : comparisonLD
         </div>
       )}
 
-      <section>
+      <section id="specs">
         <h2 style="font-size:1.3rem;margin-bottom:16px;">Every spec, side by side</h2>
         <div style="overflow-x:auto;">
           <table class="specs-table">
@@ -91,7 +100,7 @@ const schema = breadcrumbLD ? mergeLD(breadcrumbLD, comparisonLD) : comparisonLD
         </div>
       </section>
 
-      <section>
+      <section id="products">
         <h2>All products compared</h2>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
           {products.map(p => (

@@ -1,6 +1,7 @@
 ---
 // RoundupLayout — "Best X" editorial roundup pages
 import BaseLayout from './BaseLayout.astro';
+import StickyTOC from '../components/StickyTOC.astro';
 import { generateItemListLD, generateBreadcrumbLD, generateFAQLD, mergeLD } from '../lib/structured-data';
 
 const {
@@ -25,6 +26,13 @@ const itemListLD = generateItemListLD(products, title, pageUrl);
 const faqLD = faqs.length ? generateFAQLD(faqs) : null;
 const schemaComponents = [breadcrumbLD, itemListLD, faqLD].filter(Boolean);
 const schema = schemaComponents.length === 1 ? schemaComponents[0] : mergeLD(...schemaComponents);
+
+// TOC headings
+const tocHeadings = [
+  { id: 'contenders', text: 'The Contenders', level: 'h2' },
+];
+if (howWeChose) tocHeadings.push({ id: 'how-we-chose', text: 'How We Chose', level: 'h2' });
+if (faqs.length) tocHeadings.push({ id: 'faq', text: 'Common Questions', level: 'h2' });
 ---
 
 <BaseLayout title={title} description={description} schema={schema}>
@@ -39,6 +47,7 @@ const schema = schemaComponents.length === 1 ? schemaComponents[0] : mergeLD(...
     </nav>
 
     <article>
+      <StickyTOC headings={tocHeadings} />
       <header class="article-header">
         <div class="changelog">Updated {new Date().toISOString().split('T')[0]} &middot; {products.length} products compared</div>
         <h1>{title}</h1>
@@ -53,7 +62,7 @@ const schema = schemaComponents.length === 1 ? schemaComponents[0] : mergeLD(...
       {intro && <section class="intro"><p>{intro}</p></section>}
 
       {winner && winnerLabel && (
-        <div class="winner-box">
+        <div class="winner-box" id="winner">
           <div class="winner-box__badge">{winnerLabel}</div>
           <div class="winner-box__product">
             {products.find(p => p.asin === winner)?.title || winner}
@@ -71,7 +80,7 @@ const schema = schemaComponents.length === 1 ? schemaComponents[0] : mergeLD(...
         </div>
       )}
 
-      <section>
+      <section id="contenders">
         <h2>The contenders</h2>
         {products.map((product) => (
           <div class="product-card">
@@ -122,10 +131,10 @@ const schema = schemaComponents.length === 1 ? schemaComponents[0] : mergeLD(...
         ))}
       </section>
 
-      {howWeChose && <section class="guide-section" set:html={howWeChose} />}
+      {howWeChose && <section id="how-we-chose" class="guide-section" set:html={howWeChose} />}
 
       {faqs.length > 0 && (
-        <section class="faq">
+        <section id="faq" class="faq">
           <h2>Common questions</h2>
           {faqs.map((item) => (
             <details class="faq-item">
