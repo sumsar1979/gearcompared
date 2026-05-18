@@ -1,0 +1,37 @@
+GearCompared Link Check — 2026-05-18 04:32 UTC
+Total products: 30
+Changes made: 5
+
+[OK] KEPT (25 total):
+  [OK_LIVE] B0CT95J8XH — Vari ComfortEdge Electric Standing Desk
+  [OK_LIVE] B0B422BBHT — FlexiSpot E7 Pro Electric Standing Desk
+  [OK_LIVE] B08572G1FG — Uplift V2 Standing Desk (Commercial)
+  [OK_LIVE] B07SZHWCH5 — Uplift V2 Standing Desk (Standard)
+  [DDG_INDEXED] B0B41YH9B6 — FlexiSpot E7 Plus Standing Desk
+  [DDG_INDEXED] B0G2KZDXDQ — Autonomous SmartDesk Core
+  [DDG_INDEXED] B0FKH3GMZL — SHW Electric Height Adjustable Standing Desk
+  [DDG_INDEXED] B0B422ZYY1 — FlexiSpot EC1 Standing Desk Frame
+  [DDG_INDEXED] B0C1VNFQS9 — FEZIBO Height Adjustable Electric Standing Desk
+  [OK_LIVE] B008H4SLV6 — Vitamix 5200 Blender
+  [DDG_INDEXED] B07GV2SGRD — Ninja BN701 Professional Plus Blender
+  [DDG_INDEXED] B07FDJMC9Q — Ninja Air Fryer AF101
+  [DDG_INDEXED] B0CBSB2L7K — Ninja DZ201 Foodi DualZone XL Air Fryer
+  [DDG_INDEXED] B0BD4BYR11 — COSORI Pro Gen 2 Air Fryer 5.8QT
+  [DDG_INDEXED] B07VHFMZHJ — Instant Pot Vortex Plus 6QT Air Fryer
+  [DDG_INDEXED] B07JVD78TT — Breville Bambino Plus Espresso Machine BES500BSS
+  [DDG_INDEXED] B0798G41DB — Ninja 12-Cup Programmable Coffee Brewer
+  [DDG_INDEXED] B08C76KF7Q — Hamilton Beach FlexBrew Trio Coffee Maker
+  [DDG_INDEXED] B00CH9QWOU — Bodum Brazil French Press, 34oz
+  [DDG_INDEXED] B005Z2F9T0 — KitchenAid Artisan 5-Quart Tilt-Head Stand Mixer
+  [DDG_INDEXED] B08XY4D1P4 — KitchenAid Classic Plus 4.5-Quart Tilt-Head
+  [DDG_INDEXED] B07RTX3D8S — Cuisinart SM-50 5.5-Quart Stand Mixer
+  [DDG_INDEXED] B000P9CWNY — KitchenAid Pro 600 Series 6-Quart Bowl-Lift Stand Mixer
+  [DDG_INDEXED] B001415B12 — Breville BTA840XL Die-Cast 4-Slice Smart Toaster
+  [DDG_INDEXED] B006OQSNYY — Cuisinart Touch to Toast Leverless 4-Slice Toaster
+
+[REPLACED] REPLACED with search URLs (5 total):
+  [DEAD_CONFIRMED] B0DHS5X6WD — Fully Jarvis Standing Desk
+  [DEAD_CONFIRMED] B07L34K4BH — Vitamix E310 Explorian Blender
+  [DEAD_CONFIRMED] B0BCN28P8G — Ninja Professional Plus Blender DUO
+  [DEAD_CONFIRMED] B08CK7TBP3 — KitchenAid KMT4117 4-Slice Toaster
+  [DEAD_CONFIRMED] B00005OTWM — Cuisinart CPT-122 2-Slice Compact Toaster
