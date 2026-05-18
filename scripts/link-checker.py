@@ -151,7 +151,7 @@ def process_products():
             'title': title[:60],
             'status': status,
             'action': action,
-            'old_type': current_type,
+            'old_type': 'dp' if is_dp else 'search',
             'new_type': 'dp' if '/dp/' in new_url else 'search',
         })
     
