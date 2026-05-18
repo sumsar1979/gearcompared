@@ -84,6 +84,42 @@ const schema = schemaComponents.length === 1 ? schemaComponents[0] : mergeLD(...
         </div>
       </div>
 
+      {/* Pros & Cons */}
+      {(product.pros || product.cons) && (
+        <div class="pros-cons">
+          {product.pros && product.pros.length > 0 && (
+            <div class="pros-cons__col">
+              <h3 class="pros-cons__heading pros-cons__heading--pros">What We Like</h3>
+              <ul class="pros-cons__list">
+                {product.pros.map((p) => <li>{p}</li>)}
+              </ul>
+            </div>
+          )}
+          {product.cons && product.cons.length > 0 && (
+            <div class="pros-cons__col">
+              <h3 class="pros-cons__heading pros-cons__heading--cons">What We Don&rsquo;t Like</h3>
+              <ul class="pros-cons__list">
+                {product.cons.map((c) => <li>{c}</li>)}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Who it's for */}
+      {product.whoFor && (
+        <div class="who-for">
+          <h3>Who It&rsquo;s For</h3>
+          <p>{product.whoFor}</p>
+        </div>
+      )}
+      {product.whoNotFor && (
+        <div class="who-for">
+          <h3>Who It&rsquo;s Not For</h3>
+          <p>{product.whoNotFor}</p>
+        </div>
+      )}
+
 {/* Editorial Review */}
       {body && (() => {
         if (/<[a-z][\s\S]*>/i.test(body)) {
