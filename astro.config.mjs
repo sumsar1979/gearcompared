@@ -2,14 +2,19 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
+import cloudflare from '@astrojs/cloudflare';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://gearcompared.com',
   output: 'static',
+
   build: {
     format: 'directory',
   },
+
   trailingSlash: 'always',
+
   integrations: [
     sitemap({
       filter: (page) => !page.includes('/go/') && !page.includes('/api/'),
@@ -28,4 +33,6 @@ export default defineConfig({
       },
     }),
   ],
+
+  adapter: cloudflare(),
 });
