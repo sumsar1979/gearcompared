@@ -1,102 +1,102 @@
 [
   {
     "asin": "B1000TEST000",
-    "title": "Ninja Professional Blender",
-    "brand": "Ninja",
+    "title": "Instant Pot Professional Blender",
+    "brand": "Instant Pot",
     "category": "kitchen-appliances",
     "subcategory": "blenders",
-    "price": 65.94,
-    "listPrice": null,
-    "rating": 3.5,
-    "reviewCount": 2880,
+    "price": 353.26,
+    "listPrice": 497.94,
+    "rating": 3.7,
+    "reviewCount": 17173,
     "imageUrl": "https://picsum.photos/seed/B1000TEST000/600/600",
     "specs": {
       "Motor Power": "800W",
-      "Capacity": "48 oz",
-      "Speed Settings": "10"
+      "Capacity": "64 oz",
+      "Speed Settings": "Variable"
     },
     "features": [
-      "Dishwasher-safe parts",
-      "Non-slip feet",
-      "Quiet operation technology",
-      "Multi-function versatility",
-      "Extra-large capacity"
+      "Recipe book included",
+      "One-touch presets",
+      "Digital touchscreen controls"
     ],
     "affiliateUrl": "https://www.amazon.com/dp/B1000TEST000?tag=gearcompared-20",
-    "lastUpdated": "2026-06-01T21:04:24.559417+00:00"
+    "lastUpdated": "2026-06-08T17:36:52.820989+00:00"
   },
   {
     "asin": "B1000TEST001",
-    "title": "Vitamix Food Processor Combo",
-    "brand": "Vitamix",
+    "title": "Cuisinart Professional Blender",
+    "brand": "Cuisinart",
     "category": "kitchen-appliances",
     "subcategory": "blenders",
-    "price": 471.29,
-    "listPrice": 536.88,
-    "rating": 4.2,
-    "reviewCount": 22473,
+    "price": 136.77,
+    "listPrice": null,
+    "rating": 4.7,
+    "reviewCount": 4870,
     "imageUrl": "https://picsum.photos/seed/B1000TEST001/600/600",
     "specs": {
-      "Motor Power": "800W",
-      "Capacity": "64 oz",
-      "Speed Settings": "5"
+      "Motor Power": "1000W",
+      "Capacity": "32 oz",
+      "Speed Settings": "10"
     },
     "features": [
-      "One-touch presets",
-      "Dishwasher-safe parts",
-      "BPA-free materials"
+      "Digital touchscreen controls",
+      "Extra-large capacity",
+      "Cool-touch exterior"
     ],
     "affiliateUrl": "https://www.amazon.com/dp/B1000TEST001?tag=gearcompared-20",
-    "lastUpdated": "2026-06-01T21:04:24.559441+00:00"
+    "lastUpdated": "2026-06-08T17:36:52.821011+00:00"
   },
   {
     "asin": "B1000TEST002",
-    "title": "Breville Dual Basket Air Fryer",
-    "brand": "Breville",
+    "title": "KitchenAid XL Air Fryer",
+    "brand": "KitchenAid",
     "category": "kitchen-appliances",
     "subcategory": "air-fryers",
-    "price": 93.2,
-    "listPrice": 128.9,
-    "rating": 4.6,
-    "reviewCount": 4735,
+    "price": 83.41,
+    "listPrice": null,
+    "rating": 3.8,
+    "reviewCount": 2021,
     "imageUrl": "https://picsum.photos/seed/B1000TEST002/600/600",
     "specs": {
-      "Capacity": "4 qt",
+      "Capacity": "5 qt",
       "Wattage": "1500W",
-      "Functions": "7-in-1"
+      "Functions": "10-in-1"
     },
     "features": [
-      "BPA-free materials",
+      "Cool-touch exterior",
+      "Quiet operation technology",
       "LED indicator lights",
-      "Overheat protection",
-      "Digital touchscreen controls"
+      "Auto-shutoff safety feature"
     ],
     "affiliateUrl": "https://www.amazon.com/dp/B1000TEST002?tag=gearcompared-20",
-    "lastUpdated": "2026-06-01T21:04:24.559464+00:00"
+    "lastUpdated": "2026-06-08T17:36:52.821031+00:00"
   },
   {
     "asin": "B1000TEST003",
-    "title": "De'Longhi XL Air Fryer",
-    "brand": "De'Longhi",
+    "title": "Vitamix Toaster Oven Air Fryer",
+    "brand": "Vitamix",
     "category": "kitchen-appliances",
     "subcategory": "air-fryers",
-    "price": 203.74,
-    "listPrice": 301.84,
-    "rating": 4.3,
-    "reviewCount": 12047,
+    "price": 74.94,
+    "listPrice": 103.43,
+    "rating": 4.5,
+    "reviewCount": 15625,
     "imageUrl": "https://picsum.photos/seed/B1000TEST003/600/600",
     "specs": {
-      "Capacity": "8 qt",
-      "Wattage": "1400W",
+      "Capacity": "5 qt",
+      "Wattage": "1500W",
       "Functions": "8-in-1"
     },
     "features": [
-      "Auto-shutoff safety feature",
-      "Cool-touch exterior",
+      "LED indicator lights",
+      "BPA-free materials",
+      "Non-slip feet",
+      "Dishwasher-safe parts",
       "Digital touchscreen controls"
     ],
     "affiliateUrl": "https://www.amazon.com/dp/B1000TEST003?tag=gearcompared-20",
-    "lastUpdated": "2026-06-01T21:04:24.559483+00:00"
+    "lastUpdated": "2026-06-08T17:36:52.821051+00:00"
   },
   {
     "asin": "B1000TEST004",
@@ -104,102 +104,100 @@
     "brand": "Instant Pot",
     "category": "kitchen-appliances",
     "subcategory": "coffee-makers",
-    "price": 440.86,
-    "listPrice": 530.97,
-    "rating": 3.8,
-    "reviewCount": 16441,
+    "price": 311.73,
+    "listPrice": 376.79,
+    "rating": 4.0,
+    "reviewCount": 13278,
     "imageUrl": "https://picsum.photos/seed/B1000TEST004/600/600",
     "specs": {
       "Brew Size": "8 cup",
       "Bar Pressure": "19 bar",
-      "Grinder": "None"
+      "Grinder": "Built-in"
     },
     "features": [
-      "Auto-shutoff safety feature",
-      "Quiet operation technology",
-      "One-touch presets",
-      "Cord storage in base",
-      "Extra-large capacity"
+      "Dishwasher-safe parts",
+      "Non-slip feet",
+      "Recipe book included",
+      "Auto-shutoff safety feature"
     ],
     "affiliateUrl": "https://www.amazon.com/dp/B1000TEST004?tag=gearcompared-20",
-    "lastUpdated": "2026-06-01T21:04:24.559503+00:00"
+    "lastUpdated": "2026-06-08T17:36:52.821072+00:00"
   },
   {
     "asin": "B1000TEST005",
-    "title": "Hamilton Beach Pour-Over",
-    "brand": "Hamilton Beach",
+    "title": "Cuisinart Single Serve",
+    "brand": "Cuisinart",
     "category": "kitchen-appliances",
     "subcategory": "coffee-makers",
-    "price": 212.05,
-    "listPrice": 247.29,
-    "rating": 4.2,
-    "reviewCount": 446,
+    "price": 453.48,
+    "listPrice": null,
+    "rating": 4.8,
+    "reviewCount": 6804,
     "imageUrl": "https://picsum.photos/seed/B1000TEST005/600/600",
     "specs": {
       "Brew Size": "10 cup",
-      "Bar Pressure": "9 bar",
+      "Bar Pressure": "19 bar",
       "Grinder": "None"
     },
     "features": [
-      "BPA-free materials",
-      "Recipe book included",
-      "Overheat protection",
-      "Digital touchscreen controls",
-      "One-touch presets"
+      "Quiet operation technology",
+      "One-touch presets",
+      "Multi-function versatility"
     ],
     "affiliateUrl": "https://www.amazon.com/dp/B1000TEST005?tag=gearcompared-20",
-    "lastUpdated": "2026-06-01T21:04:24.559522+00:00"
+    "lastUpdated": "2026-06-08T17:36:52.821090+00:00"
   },
   {
     "asin": "B1000TEST006",
-    "title": "Cuisinart Mini Stand Mixer",
-    "brand": "Cuisinart",
+    "title": "Breville Tilt-Head Stand Mixer",
+    "brand": "Breville",
     "category": "kitchen-appliances",
     "subcategory": "stand-mixers",
-    "price": 372.18,
-    "listPrice": 441.33,
-    "rating": 4.1,
-    "reviewCount": 8144,
+    "price": 426.24,
+    "listPrice": 470.54,
+    "rating": 4.2,
+    "reviewCount": 11177,
     "imageUrl": "https://picsum.photos/seed/B1000TEST006/600/600",
     "specs": {
       "Bowl Size": "6 qt",
-      "Motor Wattage": "350W",
-      "Attachments": "10"
+      "Motor Wattage": "300W",
+      "Attachments": "5"
     },
     "features": [
       "Cool-touch exterior",
-      "Multi-function versatility",
-      "Quiet operation technology",
-      "Dishwasher-safe parts"
+      "LED indicator lights",
+      "Cord storage in base",
+      "Overheat protection",
+      "Auto-shutoff safety feature"
     ],
     "affiliateUrl": "https://www.amazon.com/dp/B1000TEST006?tag=gearcompared-20",
-    "lastUpdated": "2026-06-01T21:04:24.559545+00:00"
+    "lastUpdated": "2026-06-08T17:36:52.821114+00:00"
   },
   {
     "asin": "B1000TEST007",
-    "title": "Ninja Bowl-Lift Stand Mixer",
-    "brand": "Ninja",
+    "title": "Breville Mini Stand Mixer",
+    "brand": "Breville",
     "category": "kitchen-appliances",
     "subcategory": "stand-mixers",
-    "price": 110.07,
-    "listPrice": null,
-    "rating": 4.4,
-    "reviewCount": 12395,
+    "price": 207.58,
+    "listPrice": 261.16,
+    "rating": 4.6,
+    "reviewCount": 16138,
     "imageUrl": "https://picsum.photos/seed/B1000TEST007/600/600",
     "specs": {
-      "Bowl Size": "6 qt",
+      "Bowl Size": "4.5 qt",
       "Motor Wattage": "575W",
-      "Attachments": "10"
+      "Attachments": "3"
     },
     "features": [
-      "Digital touchscreen controls",
       "Cool-touch exterior",
-      "Non-slip feet",
-      "Cord storage in base",
+      "Overheat protection",
+      "Dishwasher-safe parts",
+      "Quiet operation technology",
       "BPA-free materials"
     ],
     "affiliateUrl": "https://www.amazon.com/dp/B1000TEST007?tag=gearcompared-20",
-    "lastUpdated": "2026-06-01T21:04:24.559566+00:00"
+    "lastUpdated": "2026-06-08T17:36:52.821137+00:00"
   },
   {
     "asin": "B1000TEST008",
@@ -207,50 +205,47 @@
     "brand": "Instant Pot",
     "category": "kitchen-appliances",
     "subcategory": "toasters",
-    "price": 453.09,
-    "listPrice": 580.39,
-    "rating": 4.3,
-    "reviewCount": 10311,
+    "price": 438.65,
+    "listPrice": null,
+    "rating": 3.5,
+    "reviewCount": 12965,
     "imageUrl": "https://picsum.photos/seed/B1000TEST008/600/600",
     "specs": {
-      "Slots": "2",
-      "Settings": "Bagel/Defrost",
+      "Slots": "2 long slot",
+      "Settings": "Digital",
       "Material": "Stainless Steel"
     },
     "features": [
+      "BPA-free materials",
       "LED indicator lights",
-      "Digital touchscreen controls",
-      "Cord storage in base",
-      "Cool-touch exterior",
-      "Multi-function versatility"
+      "Recipe book included",
+      "Cool-touch exterior"
     ],
     "affiliateUrl": "https://www.amazon.com/dp/B1000TEST008?tag=gearcompared-20",
-    "lastUpdated": "2026-06-01T21:04:24.559585+00:00"
+    "lastUpdated": "2026-06-08T17:36:52.821158+00:00"
   },
   {
     "asin": "B1000TEST009",
-    "title": "Hamilton Beach 2-Slice Toaster",
-    "brand": "Hamilton Beach",
+    "title": "KitchenAid Smart Toaster",
+    "brand": "KitchenAid",
     "category": "kitchen-appliances",
     "subcategory": "toasters",
-    "price": 472.35,
-    "listPrice": null,
-    "rating": 4.8,
-    "reviewCount": 2623,
+    "price": 205.72,
+    "listPrice": 309.69,
+    "rating": 4.3,
+    "reviewCount": 27258,
     "imageUrl": "https://picsum.photos/seed/B1000TEST009/600/600",
     "specs": {
-      "Slots": "2",
-      "Settings": "6 shade",
-      "Material": "Brushed Metal"
+      "Slots": "4",
+      "Settings": "Digital",
+      "Material": "Stainless Steel"
     },
     "features": [
       "Non-slip feet",
-      "Multi-function versatility",
-      "Overheat protection",
       "Dishwasher-safe parts",
-      "Cord storage in base"
+      "Overheat protection"
     ],
     "affiliateUrl": "https://www.amazon.com/dp/B1000TEST009?tag=gearcompared-20",
-    "lastUpdated": "2026-06-01T21:04:24.559603+00:00"
+    "lastUpdated": "2026-06-08T17:36:52.821176+00:00"
   }
 ]
