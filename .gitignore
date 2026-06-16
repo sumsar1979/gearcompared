@@ -39,3 +39,9 @@ Thumbs.db
 
 # Test data that shouldn't be committed (production data fetched by CI)
 # data/products/*.json  — keep these tracked so devs have sample data
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
